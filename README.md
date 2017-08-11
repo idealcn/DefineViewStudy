@@ -1,0 +1,1 @@
+# canvas.save()和canvas.restore()的区别

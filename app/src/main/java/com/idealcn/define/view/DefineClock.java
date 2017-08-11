@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -43,7 +44,7 @@ public class DefineClock extends View {
         mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mTextPaint.setColor(Color.parseColor("#345678"));
         mTextPaint.setStrokeWidth(3);
-        mTextPaint.setTextSize(20);
+        mTextPaint.setTextSize(50);
         mTextPaint.setStyle(Paint.Style.FILL);
     }
 
@@ -57,10 +58,23 @@ public class DefineClock extends View {
 
 
         canvas.drawCircle(CENTER_X,CENTER_Y,RADIUS,mOuterCirclePaint);
-        canvas.drawText(String.valueOf(12),CENTER_X,40,mTextPaint);
-        for (int i = 12; i >11; i--) {
+//        canvas.drawText(String.valueOf(12),CENTER_X,40,mTextPaint);
+        Rect rect = null;
+        String text = null;
+        int textWidth,textHeight;
+        for (int i = 12; i >0; i--) {
             canvas.save();
-            canvas.drawText(String.valueOf(i),CENTER_X, (float) (OFFSET*2),mTextPaint);
+
+            rect = new Rect();
+            text = String.valueOf(i);
+            mTextPaint.getTextBounds(text,0,text.length(),rect);
+            textWidth = rect.right - rect.left;
+            textHeight = rect.bottom - rect.top;
+
+            canvas.drawText(String.valueOf(i),
+                    CENTER_X - mTextPaint.measureText(text)/2,
+                   OFFSET+textHeight+mTextPaint.getStrokeWidth()+5,
+                    mTextPaint);
             canvas.rotate(30);
             canvas.restore();
         }
