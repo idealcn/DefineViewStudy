@@ -23,6 +23,7 @@ public class DefineClock extends View {
     //偏移量，避免圆超过边界
     private final int OFFSET = 10;
 
+    private   Rect rect = new Rect();
 
     public DefineClock(Context context) {
         this(context,null);
@@ -59,23 +60,24 @@ public class DefineClock extends View {
 
         canvas.drawCircle(CENTER_X,CENTER_Y,RADIUS,mOuterCirclePaint);
 //        canvas.drawText(String.valueOf(12),CENTER_X,40,mTextPaint);
-        Rect rect = null;
+
         String text = null;
-        int textWidth,textHeight;
+        int textHeight;
         for (int i = 12; i >0; i--) {
+            //保存画布当前的状态
             canvas.save();
-
-            rect = new Rect();
+            //以圆心为轴心旋转画布
+            canvas.rotate(30*(-12+i),CENTER_X,CENTER_Y);
+            rect.setEmpty();
             text = String.valueOf(i);
-            mTextPaint.getTextBounds(text,0,text.length(),rect);
-            textWidth = rect.right - rect.left;
+            mTextPaint.getTextBounds(text,0,text.length(), rect);
             textHeight = rect.bottom - rect.top;
-
             canvas.drawText(String.valueOf(i),
                     CENTER_X - mTextPaint.measureText(text)/2,
                    OFFSET+textHeight+mTextPaint.getStrokeWidth()+5,
                     mTextPaint);
-            canvas.rotate(30);
+
+            //取出画布保存的状态,这一步如果放到for循环之后,那么画布每次旋转的角度都是30赌
             canvas.restore();
         }
 
