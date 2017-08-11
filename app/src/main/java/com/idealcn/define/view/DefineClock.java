@@ -59,7 +59,12 @@ public class DefineClock extends View {
 
 
         canvas.drawCircle(CENTER_X,CENTER_Y,RADIUS,mOuterCirclePaint);
-//        canvas.drawText(String.valueOf(12),CENTER_X,40,mTextPaint);
+        mOuterCirclePaint.reset();
+        mOuterCirclePaint.setStyle(Paint.Style.FILL);
+        mOuterCirclePaint.setAntiAlias(true);
+        mOuterCirclePaint.setColor(Color.BLACK);
+        mOuterCirclePaint.setStrokeWidth(20);
+        canvas.drawPoint(CENTER_X,CENTER_Y,mOuterCirclePaint);
 
         String text = null;
         int textHeight;
