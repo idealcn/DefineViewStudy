@@ -14,3 +14,8 @@
   > 1.  requestLayout()会调用ViewParent.requestLayout(),并为重新布局打上标记,这个调用过程采用的责任链模式,最终调用了ViewRootImpl.requestLayout(),
   >      然后调用scheduleTraversals,在这个方法中开启了一个子线程去执行doTraversal(),在这个方法中执行了performTraversals(),然后重新执行三大流程
   > 2. invalidate()最终也是执行到ViewRootImpl的scheduleTraversals,但是这个方法只对重新绘制做了标记，因此不会走onMeasure和onLayout.这是个同步方法，异步执行可以调用postInvalidate().
+
+
+# View的绘制流程
+>　从ViewRootImpl的performTraveals()方法开始执行.通过getRootMeasureSpec获取顶级DecorView的MeasureSpec,然后执行performMeasure(),performLayout,performDraw.
+> 1. performMeasure();
