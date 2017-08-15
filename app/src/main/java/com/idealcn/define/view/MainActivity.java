@@ -1,5 +1,6 @@
 package com.idealcn.define.view;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,7 +19,8 @@ public class MainActivity extends AppCompatActivity {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                myView.setMyViewText("人民英雄永垂不朽!");
+//                myView.setMyViewText("人民英雄永垂不朽!");
+                startActivity(new Intent(MainActivity.this,MyViewGroupActivity.class));
             }
         });
     }

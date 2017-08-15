@@ -19,3 +19,5 @@
 # View的绘制流程
 >　从ViewRootImpl的performTraveals()方法开始执行.通过getRootMeasureSpec获取顶级DecorView的MeasureSpec,然后执行performMeasure(),performLayout,performDraw.
 > 1. performMeasure();
+> 2. performLayout();----> View.layout();---->View.onLayout();对于单个View,无需重写onLayout();对于ViewGroup，其将onLayout()定义成抽象方法，子类
+        必须重写.
