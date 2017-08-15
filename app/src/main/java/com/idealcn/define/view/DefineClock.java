@@ -7,7 +7,9 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
+
 
 /**
  * Created by ideal on 17-8-11.
@@ -38,6 +40,7 @@ public class DefineClock extends View {
 
 
         mOuterCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mOuterCirclePaint.reset();
         mOuterCirclePaint.setColor(Color.parseColor("#345678"));
         mOuterCirclePaint.setStrokeWidth(3);
         mOuterCirclePaint.setStyle(Paint.Style.STROKE);
@@ -50,20 +53,31 @@ public class DefineClock extends View {
     }
 
     @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         CENTER_X = getWidth()/2;
         CENTER_Y = getHeight()/2;
-        RADIUS = Math.min(getWidth(),getHeight())/2 - OFFSET;
+        RADIUS = Math.min(getWidth()-getPaddingLeft()-getPaddingRight(),
+                getHeight() - getPaddingTop() - getPaddingBottom())/2 - OFFSET;
 
 
 
         canvas.drawCircle(CENTER_X,CENTER_Y,RADIUS,mOuterCirclePaint);
         mOuterCirclePaint.reset();
-        mOuterCirclePaint.setStyle(Paint.Style.FILL);
+        mOuterCirclePaint.setStyle(Paint.Style.STROKE);
         mOuterCirclePaint.setAntiAlias(true);
-        mOuterCirclePaint.setColor(Color.BLACK);
-        mOuterCirclePaint.setStrokeWidth(20);
+        mOuterCirclePaint.setColor(Color.RED);
+        mOuterCirclePaint.setStrokeWidth(5);
         canvas.drawPoint(CENTER_X,CENTER_Y,mOuterCirclePaint);
 
         String text = null;
@@ -78,8 +92,8 @@ public class DefineClock extends View {
             mTextPaint.getTextBounds(text,0,text.length(), rect);
             textHeight = rect.bottom - rect.top;
             canvas.drawText(String.valueOf(i),
-                    CENTER_X - mTextPaint.measureText(text)/2,
-                   OFFSET+textHeight+mTextPaint.getStrokeWidth()+5,
+                    CENTER_X - mTextPaint.measureText(text)/2 ,
+                   OFFSET+textHeight+mTextPaint.getStrokeWidth()+5 + getPaddingTop(),
                     mTextPaint);
 
             //取出画布保存的状态,这一步如果放到for循环之后,那么画布每次旋转的角度都是30赌
@@ -92,6 +106,8 @@ public class DefineClock extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        Log.d("clock", "onMeasure: "+getPaddingLeft()+"---"+getPaddingRight());
 
         setMeasuredDimension(getClockWidth(widthMeasureSpec)
         ,getClockHeight(heightMeasureSpec));
