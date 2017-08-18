@@ -24,7 +24,7 @@ public class MyView extends View {
     private static final String TAG = "MyView";
     private DisplayMetrics metrics;
 
-    private int myViewHeight,myViewWidth;
+//    private int myViewHeight,myViewWidth;
     private String myViewText;
 
     private Paint mTextPaint;
@@ -41,8 +41,8 @@ public class MyView extends View {
         super(context, attrs, defStyleAttr);
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.MyView);
 
-        myViewWidth = (int) typedArray.getDimension(R.styleable.MyView_myView_width,100);
-        myViewHeight = (int) typedArray.getDimension(R.styleable.MyView_myView_height,100);
+//        myViewWidth = (int) typedArray.getDimension(R.styleable.MyView_myView_width,100);
+//        myViewHeight = (int) typedArray.getDimension(R.styleable.MyView_myView_height,100);
         myViewText = (String) typedArray.getText(R.styleable.MyView_myView_text);
         if (TextUtils.isEmpty(myViewText))
             myViewText = "未知数据";
@@ -92,17 +92,22 @@ public class MyView extends View {
         int mode = MeasureSpec.getMode(heightMeasureSpec);
         int size = MeasureSpec.getSize(heightMeasureSpec);
         Log.d(TAG, "getHeight: "+mode);
-        if (myViewHeight>size) {
+//        if (myViewHeight>size) {
             if (mode == MeasureSpec.EXACTLY) {
                 result = getMeasuredHeight();
             } else {
                 if (mode == MeasureSpec.AT_MOST) {
-                    result = size;
+//                    Rect rect = getRect();
+//                    result = rect.bottom - rect.top;
+                    Paint.FontMetrics metrics = mTextPaint.getFontMetrics();
+                    result = (int) (metrics.descent - metrics.ascent +metrics.bottom);
+//                    Log.d(TAG, "getHeight: "+height);
+
                 }
             }
-        }else {
-            result = myViewHeight;
-        }
+//        }else {
+//            result = myViewHeight;
+//        }
         return result;
     }
 
@@ -113,19 +118,19 @@ public class MyView extends View {
         int mode = MeasureSpec.getMode(widthMeasureSpec);
         int size = MeasureSpec.getSize(widthMeasureSpec);
         Log.d(TAG, "getWidth: "+mode);
-        if (myViewWidth>size) {
+//        if (myViewWidth>size) {
             switch (mode) {
                 case MeasureSpec.AT_MOST:
-                    Rect rect = getRect();
-                    result = rect.right - rect.left;
+
+                    result = (int) mTextPaint.measureText(myViewText);
                     break;
                 case MeasureSpec.EXACTLY:
                     result = getMeasuredWidth();
                     break;
             }
-        }else {
-            result = myViewWidth;
-        }
+//        }else {
+//            result = myViewWidth;
+//        }
         return result;
     }
 
