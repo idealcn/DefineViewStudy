@@ -21,3 +21,28 @@
 > 1. performMeasure();
 > 2. performLayout();----> View.layout();---->View.onLayout();对于单个View,无需重写onLayout();对于ViewGroup，其将onLayout()定义成抽象方法，子类
         必须重写.
+
+
+
+# 在Activity里面获取view的宽高时,在onCreate()获取,view可能还没初始化完成,因此获取到的宽高可能为0,通过以下两种方式解决:
+    > 1. View.getViewTreeObserver()
+    ```
+    final  ViewTreeObserver treeObserver = myView.getViewTreeObserver();
+            treeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+                @Override
+                public void onGlobalLayout() {
+                    if (treeObserver.isAlive()){
+                        treeObserver.removeOnGlobalLayoutListener(this);
+                        //TODO 获取view宽高
+
+                    }
+                }
+            });
+    ```
+    > 2. 在onWindowFocusChanged(boolean hasFocus),这个方法当Activity不在前台显示时调用,在onResume之后,onPause之前.
+    ```
+    if(hasFoucs){
+        //TODO 获取view宽高
+    }
+    ```

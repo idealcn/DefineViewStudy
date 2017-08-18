@@ -82,11 +82,14 @@ public class DefineClock extends View {
 
         String text = null;
         int textHeight;
+        canvas.save();
         for (int i = 12; i >0; i--) {
             //保存画布当前的状态
-            canvas.save();
+            //canvas.save();
             //以圆心为轴心旋转画布
-            canvas.rotate(30*(-12+i),CENTER_X,CENTER_Y);
+//            canvas.rotate(30*(-12+i),CENTER_X,CENTER_Y);
+
+
             rect.setEmpty();
             text = String.valueOf(i);
             mTextPaint.getTextBounds(text,0,text.length(), rect);
@@ -95,11 +98,11 @@ public class DefineClock extends View {
                     CENTER_X - mTextPaint.measureText(text)/2 ,
                    OFFSET+textHeight+mTextPaint.getStrokeWidth()+5 + getPaddingTop(),
                     mTextPaint);
-
+            canvas.rotate(-30,CENTER_X,CENTER_Y);
             //取出画布保存的状态,这一步如果放到for循环之后,那么画布每次旋转的角度都是30赌
-            canvas.restore();
+//            canvas.restore();
         }
-
+        canvas.restore();
 
     }
 
