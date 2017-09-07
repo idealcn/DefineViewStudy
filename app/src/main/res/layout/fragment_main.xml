@@ -1,0 +1,31 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:define="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View.OnClickListener"/>
+        <variable
+            name="click"
+            type="com.idealcn.define.view.MainFragment"/>
+    </data>
+
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:onClick="@{click}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="进度条"
+            android:id="@+id/progressBar"/>
+        <Button
+            android:onClick="@{click}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="进度条"
+            android:id="@+id/clock"/>
+
+
+    </LinearLayout>
+</layout>

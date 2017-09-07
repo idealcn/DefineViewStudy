@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:define="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View.OnClickListener"/>
+        <variable
+            name="click"
+            type="com.idealcn.define.view.ui.ProgressBarActivity"/>
+
+
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <Button
+                android:onClick="@{click}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="圆形"
+                android:id="@+id/circle"
+                />
+            <Button
+                android:onClick="@{click}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="直线"
+                android:id="@+id/line"
+                />
+        </LinearLayout>
+
+        <com.idealcn.define.view.ColorfulCircle
+            android:padding="10dp"
+            define:progress_type="LINE"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:id="@+id/colorCircle"/>
+    </LinearLayout>
+
+</layout>

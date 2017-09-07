@@ -46,3 +46,15 @@
         //TODO 获取view宽高
     }
     ```
+
+    ### 增加了自定义view
+    1. 自定义进度条
+        * 自定义圆形进度条
+            canvas.drawArc(Rect,float...);
+            所绘制的弧形所在的圆是Rect的内切圆.Rect封装的不是view四个边界的坐标,而是到左边界和上边界的距离.
+           ```
+           //这里应将padding考虑在内,确切的说,一切自定义view在onDraw时,都应将Padding考虑在内.
+            rect.set(getPaddingLeft(),getPaddingTop(),getWidth()-getPaddingLeft()-getPaddingRight(),
+                            getHeight()-getPaddingTop()-getPaddingBottom());
+            ```
+        * 自定义线性进度条

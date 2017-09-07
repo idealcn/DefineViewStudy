@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MyViewGroupActivity" />
+        <activity android:name=".ui.ClockActivity" />
+        <activity android:name=".ui.ProgressBarActivity" />
     </application>
 
 </manifest>

@@ -15,4 +15,12 @@
         <attr name="myView_text" format="string"/>
     </declare-styleable>
 
+
+    <declare-styleable name="ColorfulCircle">
+        <!--自定义枚举属性-->
+        <attr name="progress_type" >
+            <enum name="CIRCLE" value="0"/>
+            <enum name="LINE" value="1"/>
+        </attr>
+    </declare-styleable>
 </resources>

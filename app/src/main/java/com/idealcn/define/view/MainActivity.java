@@ -20,29 +20,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final MyView myView = (MyView) findViewById(R.id.myView);
 
-       final  ViewTreeObserver treeObserver = myView.getViewTreeObserver();
-        treeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-            @Override
-            public void onGlobalLayout() {
-                if (treeObserver.isAlive()){
-                    treeObserver.removeOnGlobalLayoutListener(this);
-                    //TODO 获取view宽高
 
-                }
-            }
-        });
+        MainFragment mainFragment = new MainFragment();
 
-        Button btnUpdate = (Button) findViewById(R.id.update);
-        btnUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                myView.setMyViewText("人民英雄永垂不朽!");
-                startActivity(new Intent(MainActivity.this,MyViewGroupActivity.class));
-            }
-        });
+        getSupportFragmentManager().beginTransaction().add(R.id.root,mainFragment).commit();
+
+
     }
 
     @Override
@@ -94,5 +78,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onAttachFragment(android.support.v4.app.Fragment fragment) {
         super.onAttachFragment(fragment);
+        Bundle bundle = new Bundle();
+        bundle.putString("name","data");
+        fragment.setArguments(bundle);
     }
 }
