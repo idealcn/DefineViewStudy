@@ -34,7 +34,7 @@
                 />
         </LinearLayout>
 
-        <com.idealcn.define.view.ColorfulCircle
+        <com.idealcn.define.view.view.ColorfulCircle
             android:padding="10dp"
             define:progress_type="LINE"
             android:layout_gravity="center"

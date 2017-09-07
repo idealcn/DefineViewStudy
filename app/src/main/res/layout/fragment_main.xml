@@ -5,7 +5,7 @@
         <import type="android.view.View.OnClickListener"/>
         <variable
             name="click"
-            type="com.idealcn.define.view.MainFragment"/>
+            type="com.idealcn.define.view.ui.MainFragment"/>
     </data>
 
     <LinearLayout

@@ -1,4 +1,4 @@
-package com.idealcn.define.view;
+package com.idealcn.define.view.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,9 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.idealcn.define.view.R;
 import com.idealcn.define.view.databinding.FragmentMainBinding;
-import com.idealcn.define.view.ui.ClockActivity;
-import com.idealcn.define.view.ui.ProgressBarActivity;
 
 /**
  * Created by ideal-gn on 2017/8/19.
@@ -39,8 +38,6 @@ public class MainFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String name = getArguments().getString("name");
-        Log.d(TAG, "onCreate: "+name);
     }
 
     @Nullable

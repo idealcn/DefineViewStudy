@@ -1,4 +1,4 @@
-package com.idealcn.define.view;
+package com.idealcn.define.view.view;
 
 import android.content.Context;
 import android.graphics.Canvas;

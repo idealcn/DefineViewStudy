@@ -27,7 +27,7 @@
         android:text="更改"
         android:id="@+id/update"/>
 
-    <com.idealcn.define.view.DefineClock
+    <com.idealcn.define.view.view.DefineClock
         android:visibility="gone"
         android:layout_centerInParent="true"
         android:padding="20dp"

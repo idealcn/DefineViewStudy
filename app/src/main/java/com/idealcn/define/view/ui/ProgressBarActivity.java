@@ -1,13 +1,12 @@
 package com.idealcn.define.view.ui;
 
-import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.idealcn.define.view.ColorfulCircle;
+import com.idealcn.define.view.view.ColorfulCircle;
 import com.idealcn.define.view.R;
 import com.idealcn.define.view.databinding.ActivityProgressbarBinding;
 

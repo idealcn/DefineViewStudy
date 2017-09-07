@@ -1,4 +1,4 @@
-package com.idealcn.define.view;
+package com.idealcn.define.view.view;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -15,6 +15,8 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Toast;
+
+import com.idealcn.define.view.R;
 
 /**
  * Created by ideal-gn on 2017/8/22.
@@ -64,12 +66,12 @@ public class ColorfulCircle extends View {
         mCirclePaint.setStrokeCap(Paint.Cap.ROUND);
         mCirclePaint.setColor(getResources().getColor(R.color.colorAccent));
 
-
         mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mTextPaint.setColor(getResources().getColor(R.color.colorAccent));
         mTextPaint.setStrokeWidth(strokeWidth);
         mTextPaint.setStyle(Paint.Style.FILL);
         mTextPaint.setTextSize(100);
+
 
 
     }
@@ -110,8 +112,7 @@ public class ColorfulCircle extends View {
 
         switch (progressType){
             case CIRCLE:
-                float startAngle = 0;
-                canvas.drawArc(rectF, startAngle,  (360*progress + 0.5f),false,mCirclePaint);
+                canvas.drawArc(rectF, 0,  (360*progress + 0.5f),false,mCirclePaint);
                 break;
             case LINE:
                 canvas.drawLine(getPaddingLeft() ,

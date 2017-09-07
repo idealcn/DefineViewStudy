@@ -1,16 +1,11 @@
-package com.idealcn.define.view;
+package com.idealcn.define.view.ui;
 
 import android.app.Fragment;
-import android.content.Intent;
-import android.nfc.Tag;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewTreeObserver;
-import android.widget.Button;
+
+import com.idealcn.define.view.R;
 
 public class MainActivity extends AppCompatActivity {
 
