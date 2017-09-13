@@ -1,13 +1,15 @@
 package com.idealcn.define.view.ui;
 
 import android.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.idealcn.define.view.listener.OnFragmentChangeListener;
 import com.idealcn.define.view.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnFragmentChangeListener {
 
     private static final String TAG = "main";
 
@@ -16,11 +18,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        float density = getResources().getDisplayMetrics().density;
+        int densityDpi = getResources().getDisplayMetrics().densityDpi;
+        float scaledDensity = getResources().getDisplayMetrics().scaledDensity;
 
         MainFragment mainFragment = new MainFragment();
-
         getSupportFragmentManager().beginTransaction().add(R.id.root,mainFragment).commit();
-
+//        mainFragment.setCallBack(this);
 
     }
 
@@ -73,8 +77,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onAttachFragment(android.support.v4.app.Fragment fragment) {
         super.onAttachFragment(fragment);
-        Bundle bundle = new Bundle();
-        bundle.putString("name","data");
-        fragment.setArguments(bundle);
+            if (fragment instanceof MainFragment){
+                ((MainFragment) fragment).setListener(this);
+            }
+    }
+
+
+    @Override
+    public void change(String text) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 }

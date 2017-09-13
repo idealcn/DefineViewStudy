@@ -17,7 +17,7 @@
         ideal:myView_width = "1250dp"
         ideal:myView_height="1250dp"
         ideal:myView_text="伟大领袖毛主席永垂不朽!战无不胜的毛泽东思想万岁!"
-         />
+        />
 
     <Button
         android:visibility="gone"

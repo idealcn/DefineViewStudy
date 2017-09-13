@@ -58,3 +58,5 @@
                             getHeight()-getPaddingTop()-getPaddingBottom());
             ```
         * 自定义线性进度条
+
+# 加入屏幕适配

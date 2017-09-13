@@ -13,10 +13,14 @@ import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.idealcn.define.view.R;
+import com.idealcn.define.view.utils.DensityUtil;
+
+import static android.util.TypedValue.COMPLEX_UNIT_SP;
 
 /**
  * Created by ideal-gn on 2017/8/22.
@@ -35,7 +39,7 @@ public class ColorfulCircle extends View {
 
     private  ObjectAnimator animator;
 
-    private int strokeWidth = 5;
+    private int strokeWidth ;
     private Paint mTextPaint;
     private Paint mCirclePaint;
 //    private float CENTER_X,CENTER_Y;
@@ -59,8 +63,11 @@ public class ColorfulCircle extends View {
         typedArray.recycle();
 
 
+        //适配画笔宽度
+        strokeWidth  = DensityUtil.dip2px(getContext(),5);
+
         mCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mCirclePaint.setStrokeWidth(30);
+        mCirclePaint.setStrokeWidth(strokeWidth);
         mCirclePaint.setStrokeJoin(Paint.Join.ROUND);
         mCirclePaint.setStyle(Paint.Style.STROKE);
         mCirclePaint.setStrokeCap(Paint.Cap.ROUND);
@@ -70,7 +77,9 @@ public class ColorfulCircle extends View {
         mTextPaint.setColor(getResources().getColor(R.color.colorAccent));
         mTextPaint.setStrokeWidth(strokeWidth);
         mTextPaint.setStyle(Paint.Style.FILL);
-        mTextPaint.setTextSize(100);
+        //适配字体
+        float textSize = DensityUtil.applyDimension(COMPLEX_UNIT_SP, 20f, getResources().getDisplayMetrics());
+        mTextPaint.setTextSize(textSize+0.5f);
 
 
 
@@ -104,7 +113,7 @@ public class ColorfulCircle extends View {
         mCirclePaint.setStyle(Paint.Style.STROKE);
         mCirclePaint.setStrokeCap(Paint.Cap.ROUND);
         //设置矩形的区域应当是view的实际大小去掉padding，一定要把padding考虑进来,避免xml布局中设置了padding
-        int defaultLeftMargin = 15;
+        int defaultLeftMargin = DensityUtil.dip2px(getContext(),15);
         rectF.set(strokeWidth+ defaultLeftMargin + getPaddingLeft(),
                 strokeWidth+ defaultLeftMargin + getPaddingTop(),
                 getWidth() - 2*(strokeWidth+ defaultLeftMargin)-getPaddingLeft() - getPaddingRight(),
@@ -180,6 +189,10 @@ public class ColorfulCircle extends View {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
+                int width = getWidth();
+                int height = getHeight();
+                int paddingLeft = getPaddingLeft();
+
                 Toast.makeText(getContext(), "end", Toast.LENGTH_SHORT).show();
                 //动画结束后,释放动画
                 animator = null;
