@@ -24,6 +24,7 @@
         <activity android:name=".ui.ClockActivity" />
         <activity android:name=".ui.ProgressBarActivity" />
         <activity android:name=".ui.RoundCakeActivity" />
+        <activity android:name=".ui.DragActivity" />
     </application>
 
 

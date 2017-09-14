@@ -18,13 +18,10 @@ public class MainActivity extends AppCompatActivity implements OnFragmentChangeL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        float density = getResources().getDisplayMetrics().density;
-        int densityDpi = getResources().getDisplayMetrics().densityDpi;
-        float scaledDensity = getResources().getDisplayMetrics().scaledDensity;
 
         MainFragment mainFragment = new MainFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.root,mainFragment).commit();
-//        mainFragment.setCallBack(this);
+
 
     }
 

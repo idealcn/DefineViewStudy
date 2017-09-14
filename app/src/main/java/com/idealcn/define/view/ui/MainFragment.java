@@ -70,6 +70,10 @@ public class MainFragment extends Fragment implements View.OnClickListener{
                 listener.change("饼状图");
                 startActivity(new Intent(mainActivity,RoundCakeActivity.class));
                 break;
+            case R.id.drag:
+                listener.change("拖拽");
+                startActivity(new Intent(mainActivity,DragActivity.class));
+                break;
             default:break;
         }
     }

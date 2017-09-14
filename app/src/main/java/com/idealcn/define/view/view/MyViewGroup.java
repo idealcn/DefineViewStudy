@@ -1,8 +1,10 @@
 package com.idealcn.define.view.view;
 
 import android.content.Context;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +17,8 @@ public class MyViewGroup extends ViewGroup {
     private ViewDragHelper helper;
     private View mContentView;
     private View mMenuView;
-    private boolean isOpen;
     private int mCurrentTop = 0;
+    private DisplayMetrics metrics;
     public MyViewGroup(Context context) {
         this(context,null);
     }
@@ -27,7 +29,7 @@ public class MyViewGroup extends ViewGroup {
 
     public MyViewGroup(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        helper = ViewDragHelper.create(this,1, new ViewDragHelperCallBack());
+
     }
 
     //实现ViewDragHelper.Callback相关方法
@@ -35,7 +37,7 @@ public class MyViewGroup extends ViewGroup {
         @Override
         public boolean tryCaptureView(View child, int pointerId) {
             //返回ture则表示可以捕获该view
-            return child == mContentView;
+            return child == mContentView || child == mMenuView;
         }
 
         @Override
@@ -49,15 +51,33 @@ public class MyViewGroup extends ViewGroup {
         @Override
         public int clampViewPositionHorizontal(View child, int left, int dx) {
             //手指触摸移动时回调, left表示要到的x坐标
-            return super.clampViewPositionHorizontal(child, left, dx);//
+            if (child==mMenuView){
+                if (left<0)return 0;
+                int diffX = metrics.widthPixels - mMenuView.getMeasuredWidth();
+                if (left> diffX)
+                    return diffX;
+            }
+            if (child==mContentView){
+                if (left<0)return 0;
+                int diffX = metrics.widthPixels - mContentView.getMeasuredWidth();
+                if (left> diffX)
+                    return diffX;
+            }
+            return left;
         }
 
         @Override
         public int clampViewPositionVertical(View child, int top, int dy) {
             //手指触摸移动时回调 top表示要到达的y坐标
 //            return Math.max(Math.min(top, mMenuView.getHeight()), 0);
-            if (dy<0&&top<=mContentView.getHeight())return 0;
-            if (top>=mContentView.getHeight())return top;
+            if (child==mContentView) {
+                if (dy < 0 && top <= mContentView.getHeight()) return 0;
+                if (top >= mContentView.getHeight()) return top;
+            }
+            if (child==mMenuView) {
+                if ( top <0) return 0;
+                if (top >=metrics.heightPixels -  mMenuView.getHeight()) return metrics.heightPixels -  mMenuView.getHeight();
+            }
             return top;
         }
 
@@ -98,9 +118,7 @@ public class MyViewGroup extends ViewGroup {
         @Override
         public void onViewDragStateChanged(int state) {
             super.onViewDragStateChanged(state);
-            if (state == ViewDragHelper.STATE_IDLE) {
-                isOpen = (mContentView.getTop() == mMenuView.getHeight());
-            }
+
         }
     }
 
@@ -109,18 +127,18 @@ public class MyViewGroup extends ViewGroup {
         super.onFinishInflate();
         mMenuView = getChildAt(0);
         mContentView = getChildAt(1);
+        helper = ViewDragHelper.create(this,1, new ViewDragHelperCallBack());
+        metrics = getResources().getDisplayMetrics();
     }
 
 
     @Override
     public void computeScroll() {
         if (helper.continueSettling(true)) {
-            invalidate();
+            ViewCompat.postInvalidateOnAnimation(this);
         }
     }
-    public boolean isDrawerOpened() {
-        return isOpen;
-    }
+
     //onInterceptTouchEvent方法调用ViewDragHelper.shouldInterceptTouchEvent
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
@@ -136,11 +154,13 @@ public class MyViewGroup extends ViewGroup {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int measureWidth = MeasureSpec.getSize(widthMeasureSpec);
-        int measureHeight = MeasureSpec.getSize(heightMeasureSpec);
-        setMeasuredDimension(measureWidth, measureHeight);
+       measureChildren(widthMeasureSpec,heightMeasureSpec);
 
-        measureChildren(widthMeasureSpec, heightMeasureSpec);
+
+
+        int width = MeasureSpec.getSize(widthMeasureSpec);
+        int height = MeasureSpec.getSize(heightMeasureSpec);
+        setMeasuredDimension(width,height);
     }
 
 
@@ -149,9 +169,9 @@ public class MyViewGroup extends ViewGroup {
         mMenuView.layout(0, 0,
                 mMenuView.getMeasuredWidth(),
                 mMenuView.getMeasuredHeight());
-        mContentView.layout(0, mCurrentTop + mMenuView.getHeight(),
-                mContentView.getMeasuredWidth(),
-                mCurrentTop + mContentView.getMeasuredHeight() + mMenuView.getHeight());
+//        mContentView.layout(0, mCurrentTop + mMenuView.getHeight(),
+//                mContentView.getMeasuredWidth(),
+//                mCurrentTop + mContentView.getMeasuredHeight() + mMenuView.getHeight());
 
     }
 

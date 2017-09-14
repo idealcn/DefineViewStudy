@@ -8,40 +8,36 @@
             type="com.idealcn.define.view.ui.MainFragment"/>
     </data>
 
-    <com.idealcn.define.view.view.MyViewGroup
+    <LinearLayout
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:background="@color/colorPrimaryDark"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="@color/colorAccent"/>
+
         <Button
-            android:visibility="gone"
             android:onClick="@{click}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="进度条"
             android:id="@+id/progressBar"/>
         <Button
-            android:visibility="gone"
             android:onClick="@{click}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="时钟"
             android:id="@+id/clock"/>
         <Button
-            android:visibility="gone"
             android:onClick="@{click}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="饼状图"
             android:id="@+id/round_cake"/>
+        <Button
+            android:onClick="@{click}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="拖拽"
+            android:id="@+id/drag"/>
 
-    </com.idealcn.define.view.view.MyViewGroup>
+    </LinearLayout>
 </layout>
