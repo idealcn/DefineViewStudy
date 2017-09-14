@@ -2,6 +2,12 @@ canvas.save()和canvas.restore()的区别
 
 canvas.save()是保存当前画布的状态,canvas.restore()是取出画布之前保存的状态
 
+- View测量
+    view的测量布局和绘制从ViewRootImpl的performTravels()方法开始。
+    调用View的measure方法，并将顶级窗口的MeasureSpec传递给View。
+    DecorView作为顶级View，它重写了onMeasure方法。测量是从DevorView的onMeasure开始的。
+
+
 ViewGroup如何决定子view的宽高和测量模式,以高度为例
 
 1. 如果ViewGroup的高度设置为match_parent或者具体数值
