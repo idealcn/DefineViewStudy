@@ -27,7 +27,7 @@ View的绘制流程
 在Activity里面获取view的宽高时,在onCreate()获取,view可能还没初始化完成,因此获取到的宽高可能为0,通过以下两种方式解决:
 
 1. View.getViewTreeObserver()
-
+   ```
     final  ViewTreeObserver treeObserver = myView.getViewTreeObserver();
             treeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -40,7 +40,7 @@ View的绘制流程
                     }
                 }
             });
-
+   ```
 1. 在onWindowFocusChanged(boolean hasFocus),这个方法当Activity不在前台显示时调用,在onResume之后,onPause之前.
        if(hasFoucs){
            //TODO 获取view宽高
