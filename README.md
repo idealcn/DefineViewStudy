@@ -7,6 +7,7 @@ canvas.save()是保存当前画布的状态,canvas.restore()是取出画布之�
     调用View的measure方法，并将顶级窗口的MeasureSpec传递给View。
     DecorView作为顶级View，它重写了onMeasure方法。测量是从DevorView的onMeasure开始的。
 
+![ViewGroup测量流程](https://github.com/idealcn/DefineViewStudy/blob/master/img/ViewGroup-measure.png)
 
 ViewGroup如何决定子view的宽高和测量模式,以高度为例
 
