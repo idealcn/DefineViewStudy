@@ -33,7 +33,7 @@ View的绘制流程
 在Activity里面获取view的宽高时,在onCreate()获取,view可能还没初始化完成,因此获取到的宽高可能为0,通过以下两种方式解决:
 
 1. View.getViewTreeObserver()
-
+   ```
     final  ViewTreeObserver treeObserver = myView.getViewTreeObserver();
             treeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -46,7 +46,7 @@ View的绘制流程
                     }
                 }
             });
-
+   ```
 1. 在onWindowFocusChanged(boolean hasFocus),这个方法当Activity不在前台显示时调用,在onResume之后,onPause之前.
        if(hasFoucs){
            //TODO 获取view宽高
@@ -66,7 +66,7 @@ View的绘制流程
 - 自定义线性进度条
 
 - 加入屏幕适配
-    -- 尺寸适配
+    - 尺寸适配
     分辨率就是像素个数。设备的dpi可以通过DisplayMetrics类来获取。
     ```
         int scale = DisplayMetric.scaleDenisty;//相对于160dpi的缩放倍数
@@ -77,7 +77,7 @@ View的绘制流程
     原因是：高分辨率的屏幕在单位尺寸上显示的像素个数比低分辨率的多。那么显示60个像素所占的屏幕大小就小一些。
 
     对于尺寸适配，通过系统API获取的尺寸是根据当前屏幕的dpi做了对应转化的，不需要适配，而自己在代码中动态设置的尺寸才需要适配。
-    -- 图片适配
+    - 图片适配
         以xhdpi和xxhdpi为基准做两套图基本够用，必要的可以做.9.patch图
-    -- 布局适配
+    - 布局适配
         尺寸限定符，宽度限定符，布局别名
