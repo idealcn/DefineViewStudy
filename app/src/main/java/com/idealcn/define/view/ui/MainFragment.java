@@ -74,6 +74,10 @@ public class MainFragment extends Fragment implements View.OnClickListener{
                 listener.change("拖拽");
                 startActivity(new Intent(mainActivity,DragActivity.class));
                 break;
+            case R.id.picSelector:
+                listener.change("图片选择器");
+                startActivity(new Intent(mainActivity,TableActivity.class));
+                break;
             default:break;
         }
     }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ideal="http://schemas.android.com/apk/res-auto">
+
+
+     <com.idealcn.define.view.view.PhotoSelector
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         ideal:columns="3"
+         ideal:horizontal_space="3dp"
+         ideal:vertical_space="3dp"
+         >
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_suggestions_add"/>
+
+
+     </com.idealcn.define.view.view.PhotoSelector>
+</layout>

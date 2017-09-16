@@ -39,5 +39,11 @@
             android:text="拖拽"
             android:id="@+id/drag"/>
 
+        <Button
+            android:onClick="@{click}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="微信图片选择器"
+            android:id="@+id/picSelector"/>
     </LinearLayout>
 </layout>

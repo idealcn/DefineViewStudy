@@ -23,4 +23,10 @@
             <enum name="LINE" value="1"/>
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="PhotoSelector">
+        <attr name="columns" format="integer"/>
+        <attr name="horizontal_space" format="dimension"/>
+        <attr name="vertical_space" format="dimension"/>
+    </declare-styleable>
 </resources>

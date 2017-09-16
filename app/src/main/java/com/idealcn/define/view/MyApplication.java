@@ -3,7 +3,6 @@ package com.idealcn.define.view;
 import android.app.Application;
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.DisplayMetrics;
 
 import java.lang.reflect.Field;
@@ -18,7 +17,6 @@ public class MyApplication extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-
     }
 
     @Override
