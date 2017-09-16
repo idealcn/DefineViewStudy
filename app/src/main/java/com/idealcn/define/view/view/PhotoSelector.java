@@ -70,9 +70,6 @@ public class PhotoSelector extends ViewGroup {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int width = MeasureSpec.getSize(widthMeasureSpec);
 //        int height = MeasureSpec.getSize(heightMeasureSpec);
-
-
-
         int childWidth = (int) ((width - horizontalSpace * columns)/columns + .5f);
         int childHeight = childWidth;
 
