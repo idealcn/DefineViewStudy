@@ -26,6 +26,7 @@
         <activity android:name=".ui.RoundCakeActivity" />
         <activity android:name=".ui.DragActivity" />
         <activity android:name=".ui.TableActivity" />
+        <activity android:name=".ui.FlowLayoutActivity" />
     </application>
 
 

@@ -78,6 +78,10 @@ public class MainFragment extends Fragment implements View.OnClickListener{
                 listener.change("图片选择器");
                 startActivity(new Intent(mainActivity,TableActivity.class));
                 break;
+            case R.id.flowLayout:
+                listener.change("流式布局");
+                startActivity(new Intent(mainActivity,FlowLayoutActivity.class));
+                break;
             default:break;
         }
     }

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
 import android.view.View;
