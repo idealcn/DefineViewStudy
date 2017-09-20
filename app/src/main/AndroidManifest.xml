@@ -27,6 +27,7 @@
         <activity android:name=".ui.DragActivity" />
         <activity android:name=".ui.TableActivity" />
         <activity android:name=".ui.FlowLayoutActivity" />
+        <activity android:name=".ui.PaddingActivity" />
     </application>
 
 

@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.idealcn.define.view.R;
+import com.idealcn.define.view.listener.OnFlowChildClickListener;
+import com.idealcn.define.view.utils.DensityUtil;
 
 /**
  * Created by ideal-gn on 2017/9/16.
@@ -18,8 +20,11 @@ import com.idealcn.define.view.R;
 public class FlowLayout extends ViewGroup {
 
     private Context context;
-    int color;
-    int size;
+    private int gravity;
+//    int color;
+//    int size;
+    float scaledDensity;
+    private OnFlowChildClickListener listener;
 
     public FlowLayout(Context context) {
         this(context,null);
@@ -31,14 +36,14 @@ public class FlowLayout extends ViewGroup {
 
     public FlowLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
+        scaledDensity = getResources().getDisplayMetrics().scaledDensity;
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.FlowLayout);
-
-
-        color = typedArray.getColor(R.styleable.FlowLayout_textColor, Color.parseColor("#ffffff"));
-        size = typedArray.getDimensionPixelSize(R.styleable.FlowLayout_textSize, 20);
-
-
-        typedArray.recycle();
+        try {
+            gravity = typedArray.getInt(R.styleable.FlowLayout_flow_gravity,0);
+        } finally {
+            typedArray.recycle();
+        }
 
         setBackgroundColor(Color.parseColor("#f4f4f4"));
     }
@@ -49,6 +54,10 @@ public class FlowLayout extends ViewGroup {
         for (int x = 0; x < childCount; x++) {
             View child = getChildAt(x);
            FlowLayoutParams lp = (FlowLayoutParams) child.getLayoutParams();
+           int top,bottom;
+            if (lp.gravity == 1){
+//                top =
+            }
             child.layout(lp.left,lp.top,lp.left + child.getMeasuredWidth(),lp.top+ child.getMeasuredHeight());
         }
     }
@@ -70,34 +79,44 @@ public class FlowLayout extends ViewGroup {
         int childCount = getChildCount();
         for (int x = 0; x < childCount; x++) {
             View child = getChildAt(x);
-            measureChild(child,widthMeasureSpec,heightMeasureSpec);
+            if (child.getVisibility()==View.GONE)continue;
             childWidth = child.getMeasuredWidth();
             childHeight = child.getMeasuredHeight();
+            measureChildWithMargins(child,
+                    widthMeasureSpec,
+                    DensityUtil.dip2px(getContext(),3),//+getPaddingLeft()+getPaddingRight(),
+                    heightMeasureSpec,
+                    DensityUtil.dip2px(getContext(),3)//+getPaddingTop()+getPaddingBottom()
+                    );
+
             FlowLayoutParams lp = (FlowLayoutParams) child.getLayoutParams();
 
-            if (tempPWidth + childWidth >= wSize){
+            if (tempPWidth + childWidth + lp.leftMargin + lp.rightMargin >= wSize){
                 lineNumber ++;
-                lp.left = 0;
+                lp.left = lp.leftMargin;
                 pWidth = Math.max(tempPWidth,pWidth);
                 pHeight += tempPHeight;
-                tempPWidth = childWidth;
+                tempPWidth = childWidth +lp.leftMargin + lp.rightMargin;
                 tempPHeight = childHeight;
             }else {
                 tempPWidth += childWidth + lp.leftMargin + lp.rightMargin;
                 tempPHeight = Math.max(childHeight + lp.topMargin + lp.bottomMargin,tempPHeight);
-                lp.left = tempPWidth - childWidth ;
+                lp.left = tempPWidth - childWidth -lp.rightMargin;
             }
             lp.top = pHeight;
+            if (lineNumber==1){
+                lp.top = lp.topMargin;
+            }
             if (x==childCount-1){
                 pHeight += tempPHeight;
             }
-
+            lp.gravity = gravity;
         }
         if (lineNumber==1){
             pWidth = tempPWidth;
             pHeight = tempPHeight;
         }
-        setMeasuredDimension(pWidth,pHeight);
+        setMeasuredDimension(pWidth,pHeight+ DensityUtil.dip2px(getContext(),5));
     }
 
 
@@ -112,6 +131,29 @@ public class FlowLayout extends ViewGroup {
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         context = getContext();
+        listener = (OnFlowChildClickListener) getContext();
+
+        int childCount = getChildCount();
+        for (int x = 0; x < childCount; x++) {
+            View child = getChildAt(x);
+            if (child.getVisibility()!=View.VISIBLE)continue;
+            if (listener!=null){
+                final int finalX = x;
+                child.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        listener.onChildClick(finalX);
+                    }
+                });
+            }
+        }
+
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        listener = null;
     }
 
     @Override
@@ -139,6 +181,8 @@ public class FlowLayout extends ViewGroup {
     public static class FlowLayoutParams extends ViewGroup.MarginLayoutParams{
 
         public int left,top;
+        public int gravity;
+        public int maxHeight;//记录某一行某个最大高度
 
         public FlowLayoutParams(Context c, AttributeSet attrs) {
             super(c, attrs);

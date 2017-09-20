@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="FlowLayout">
+        <attr name="flow_gravity" format="integer">
+            <enum name="flow_gravity_center" value="0"/>
+            <enum name="flow_gravity_center_vertical" value="1"/>
+            <enum name="flow_gravity_center_horizontal" value="2"/>
+        </attr>
+    </declare-styleable>
+</resources>

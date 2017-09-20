@@ -82,6 +82,10 @@ public class MainFragment extends Fragment implements View.OnClickListener{
                 listener.change("流式布局");
                 startActivity(new Intent(mainActivity,FlowLayoutActivity.class));
                 break;
+//            case R.id.padding:
+//                listener.change("padding");
+//                startActivity(new Intent(mainActivity,PaddingActivity.class));
+//                break;
             default:break;
         }
     }

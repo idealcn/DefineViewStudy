@@ -3,243 +3,156 @@
     xmlns:define="http://schemas.android.com/apk/res-auto">
 
     <com.idealcn.define.view.view.FlowLayout
+        define:flow_gravity="flow_gravity_center_vertical"
+        android:id="@+id/flowLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_margin="5dp"
-            android:gravity="center"
-            define:textColor = "#ffffff"
-            define:textSize = "15sp"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
+        <com.idealcn.define.view.view.FlowChildView
+            android:id="@+id/flowChildView"
             android:background="@drawable/btn_shape"
-            android:text="android"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            define:text="三国演义"
+            define:textSize = "15sp"
+            android:layout_margin="5dp"
+            define:textColor = "@color/colorAccent"
+            android:padding="3dp"/>
 
         <TextView
-            android:layout_margin="5dp"
             android:gravity="center"
-            define:textColor = "#ffffff"
-            define:textSize = "15sp"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:background="@drawable/btn_shape"
+            style="@style/FlowChildView"
+            android:text="android开发进阶"/>
+
+        <TextView
+
+            android:gravity="center"
+            style="@style/FlowChildView"
             android:text="java"/>
 
         <TextView
-            android:layout_margin="5dp"
+
             android:gravity="center"
-            define:textColor = "#ffffff"
-            define:textSize = "15sp"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:background="@drawable/btn_shape"
+            style="@style/FlowChildView"
             android:text="ios"/>
 
 
 
         <TextView
-            android:layout_margin="5dp"
+
             android:gravity="center"
-            define:textColor = "#ffffff"
-            define:textSize = "15sp"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:background="@drawable/btn_shape"
+            style="@style/FlowChildView"
             android:text="秦皇岛"/>
 
         <TextView
-            android:layout_margin="5dp"
+
             android:gravity="center"
-            define:textColor = "#ffffff"
-            define:textSize = "15sp"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:background="@drawable/btn_shape"
+            style="@style/FlowChildView"
             android:text="石家庄"/>
 
         <TextView
-            android:layout_margin="5dp"
+
             android:gravity="center"
-            define:textColor = "#ffffff"
-            define:textSize = "15sp"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:background="@drawable/btn_shape"
+            style="@style/FlowChildView"
             android:text="河北"/>
 
 
 
         <TextView
-            android:layout_margin="5dp"
+
             android:gravity="center"
-            define:textColor = "#ffffff"
-            define:textSize = "15sp"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:background="@drawable/btn_shape"
+            style="@style/FlowChildView"
             android:text="汉献帝"/>
 
         <TextView
-            android:layout_margin="5dp"
+
             android:gravity="center"
-            define:textColor = "#ffffff"
-            define:textSize = "15sp"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:background="@drawable/btn_shape"
+            style="@style/FlowChildView"
             android:text="曹操"/>
 
         <TextView
-            android:layout_margin="5dp"
+
             android:gravity="center"
-            define:textColor = "#ffffff"
-            define:textSize = "15sp"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:background="@drawable/btn_shape"
+            style="@style/FlowChildView"
             android:text="孙权"/>
 
 
 
         <TextView
-            android:layout_margin="5dp"
+
             android:gravity="center"
-            define:textColor = "#ffffff"
-            define:textSize = "15sp"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:background="@drawable/btn_shape"
+            style="@style/FlowChildView"
             android:text="马超"/>
 
         <TextView
-            android:layout_margin="5dp"
+
             android:gravity="center"
-            define:textColor = "#ffffff"
-            define:textSize = "15sp"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:background="@drawable/btn_shape"
+            style="@style/FlowChildView"
             android:text="黄忠"/>
 
         <TextView
-            android:layout_margin="5dp"
+
             android:gravity="center"
-            define:textColor = "#ffffff"
-            define:textSize = "15sp"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:background="@drawable/btn_shape"
+            style="@style/FlowChildView"
             android:text="赵云"/>
 
         <TextView
-            android:layout_margin="5dp"
+
             android:gravity="center"
-            define:textColor = "#ffffff"
-            define:textSize = "15sp"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:background="@drawable/btn_shape"
+            style="@style/FlowChildView"
             android:text="周泰"/>
 
         <TextView
-            android:layout_margin="5dp"
+
             android:gravity="center"
-            define:textColor = "#ffffff"
-            define:textSize = "15sp"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:background="@drawable/btn_shape"
+            style="@style/FlowChildView"
             android:text="孙坚"/>
 
         <TextView
-            android:layout_margin="5dp"
+
             android:gravity="center"
-            define:textColor = "#ffffff"
-            define:textSize = "15sp"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:background="@drawable/btn_shape"
+            style="@style/FlowChildView"
             android:text="陶谦"/>
 
         <TextView
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:background="@drawable/btn_shape"
+            style="@style/FlowChildView"
             android:gravity="center"
-            define:textColor = "#ffffff"
-            define:textSize = "15sp"
-            android:layout_margin="5dp"
             android:text="吕布"/>
 
         <TextView
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:background="@drawable/btn_shape"
+
             android:gravity="center"
-            define:textColor = "#ffffff"
-            define:textSize = "15sp"
-            android:layout_margin="5dp"
+            style="@style/FlowChildView"
             android:text="魏延"/>
 
         <TextView
-            android:layout_margin="5dp"
+            style="@style/FlowChildView"
             android:gravity="center"
-            define:textColor = "#ffffff"
-            define:textSize = "15sp"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:background="@drawable/btn_shape"
             android:text="许褚"/>
 
         <TextView
-            android:layout_margin="5dp"
             android:gravity="center"
-            define:textColor = "#ffffff"
-            define:textSize = "15sp"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:background="@drawable/btn_shape"
+            style="@style/FlowChildView"
             android:text="韩当"/>
 
         <TextView
-            android:layout_margin="5dp"
             android:gravity="center"
-            define:textColor = "#ffffff"
-            define:textSize = "15sp"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:background="@drawable/btn_shape"
+            style="@style/FlowChildView"
             android:text="黄盖"/>
 
         <TextView
-            android:layout_margin="5dp"
             android:gravity="center"
-            define:textColor = "#ffffff"
-            define:textSize = "15sp"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
-            android:background="@drawable/btn_shape"
+            style="@style/FlowChildView"
             android:text="太史慈"/>
 
         <TextView
-            android:layout_margin="5dp"
-            android:background="@drawable/btn_shape"
             android:gravity="center"
-            define:textColor = "#ffffff"
-            define:textSize = "15sp"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
+            style="@style/FlowChildView"
             android:text="丁奉"/>
 
         <TextView
-            android:layout_margin="5dp"
-            android:background="@drawable/btn_shape"
             android:gravity="center"
-            define:textColor = "#ffffff"
-            define:textSize = "15sp"
-            android:layout_width="40dp"
-            android:layout_height="20dp"
+            style="@style/FlowChildView"
             android:text="周瑜"/>
     </com.idealcn.define.view.view.FlowLayout>
 </layout>
