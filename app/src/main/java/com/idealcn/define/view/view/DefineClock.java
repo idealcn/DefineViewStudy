@@ -10,6 +10,15 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
+import com.idealcn.define.view.listener.OnTimeChangeListener;
+import com.idealcn.define.view.utils.DensityUtil;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 /**
  * Created by ideal on 17-8-11.
@@ -19,13 +28,18 @@ public class DefineClock extends View {
 
     private Paint mOuterCirclePaint;
     private Paint mTextPaint;
+    private Paint mPointPaint;
 
     private int CENTER_X,CENTER_Y;
     private int RADIUS;
     //偏移量，避免圆超过边界
-    private final int OFFSET = 10;
+    private  int OFFSET = 10;
 
     private   Rect rect = new Rect();
+
+    private OnTimeChangeListener listener;
+
+    private Timer timer;
 
     public DefineClock(Context context) {
         this(context,null);
@@ -40,45 +54,67 @@ public class DefineClock extends View {
 
 
         mOuterCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mOuterCirclePaint.reset();
         mOuterCirclePaint.setColor(Color.parseColor("#345678"));
-        mOuterCirclePaint.setStrokeWidth(3);
+        mOuterCirclePaint.setStrokeWidth(DensityUtil.dip2px(context,3));
         mOuterCirclePaint.setStyle(Paint.Style.STROKE);
 
         mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mTextPaint.setColor(Color.parseColor("#345678"));
-        mTextPaint.setStrokeWidth(3);
-        mTextPaint.setTextSize(50);
+        mTextPaint.setColor(Color.parseColor("#125678"));
+        mTextPaint.setStrokeWidth(DensityUtil.dip2px(context,3));
+        mTextPaint.setTextSize(DensityUtil.dip2px(context,15));
         mTextPaint.setStyle(Paint.Style.FILL);
+
+        mPointPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mPointPaint.setStyle(Paint.Style.STROKE);
+        mPointPaint.setAntiAlias(true);
+        mPointPaint.setColor(Color.RED);
+        mPointPaint.setStrokeWidth(DensityUtil.dip2px(getContext(),5));
+
+
+        OFFSET = DensityUtil.dip2px(context,OFFSET);
     }
 
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
+        listener = (OnTimeChangeListener) getContext();
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                    long l = System.currentTimeMillis();
+                    Date date = new Date(l);
+                    SimpleDateFormat format = new SimpleDateFormat("yy-MM-dd kk:mm:ss", Locale.SIMPLIFIED_CHINESE);
+                    String time = format.format(date);
+                    listener.change(time);
+            }
+        },0,100);
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
+        if (timer!=null){
+            timer.cancel();
+            timer = null;
+        }
+        if (listener!=null)
+            listener = null;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        CENTER_X = getWidth()/2;
-        CENTER_Y = getHeight()/2;
+//      这里的圆心坐标是相对于view自身取值的.
+        CENTER_X = CENTER_Y = Math.min(getWidth(),getHeight())/2;
         RADIUS = Math.min(getWidth()-getPaddingLeft()-getPaddingRight(),
                 getHeight() - getPaddingTop() - getPaddingBottom())/2 - OFFSET;
 
 
 
         canvas.drawCircle(CENTER_X,CENTER_Y,RADIUS,mOuterCirclePaint);
-        mOuterCirclePaint.reset();
-        mOuterCirclePaint.setStyle(Paint.Style.STROKE);
-        mOuterCirclePaint.setAntiAlias(true);
-        mOuterCirclePaint.setColor(Color.RED);
-        mOuterCirclePaint.setStrokeWidth(5);
-        canvas.drawPoint(CENTER_X,CENTER_Y,mOuterCirclePaint);
+
+        canvas.drawPoint(CENTER_X,CENTER_Y,mPointPaint);
 
         String text = null;
         int textHeight;
