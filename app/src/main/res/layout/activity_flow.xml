@@ -10,15 +10,54 @@
 
         <com.idealcn.define.view.view.FlowChildView
             android:id="@+id/flowChildView"
-            android:background="@drawable/btn_shape"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/FlowChildView"
             define:text="三国演义"
-            define:textSize = "15sp"
-            android:layout_margin="5dp"
+            define:textSize = "14sp"
             define:textColor = "@color/colorAccent"
-            android:padding="3dp"/>
+            />
 
+        <com.idealcn.define.view.view.FlowChildView
+            style="@style/FlowChildView"
+            define:text="三国演义"
+            define:textSize = "14sp"
+            define:textColor = "@color/colorAccent"
+            />
+
+        <com.idealcn.define.view.view.FlowChildView
+            style="@style/FlowChildView"
+            define:text="三国演义"
+            define:textSize = "14sp"
+            define:textColor = "@color/colorAccent"
+            />
+        <com.idealcn.define.view.view.FlowChildView
+            style="@style/FlowChildView"
+            define:text="三国演义"
+            define:textSize = "14sp"
+            define:textColor = "@color/colorAccent"
+            />
+
+        <com.idealcn.define.view.view.FlowChildView
+            style="@style/FlowChildView"
+            define:text="三国演义"
+            define:textSize = "14sp"
+            define:textColor = "@color/cardview_dark_background"
+            />
+        <com.idealcn.define.view.view.FlowChildView
+            style="@style/FlowChildView"
+            define:text="三国演义"
+            define:textSize = "14sp"
+            define:textColor = "@color/colorPrimary"
+            />
+        <com.idealcn.define.view.view.FlowChildView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/btn_shape"
+            define:text="三国演义"
+            define:textSize = "14sp"
+            define:textColor = "@color/colorAccent"
+            />
         <TextView
             android:gravity="center"
             style="@style/FlowChildView"
@@ -56,7 +95,16 @@
             style="@style/FlowChildView"
             android:text="河北"/>
 
-
+        <com.idealcn.define.view.view.FlowChildView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/btn_shape"
+            define:text="三国演义"
+            define:textSize = "14sp"
+            define:textColor = "@color/colorAccent"
+            />
 
         <TextView
 
@@ -75,7 +123,16 @@
             android:gravity="center"
             style="@style/FlowChildView"
             android:text="孙权"/>
-
+        <com.idealcn.define.view.view.FlowChildView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/btn_shape"
+            define:text="三国演义"
+            define:textSize = "14sp"
+            define:textColor = "@color/colorAccent"
+            />
 
 
         <TextView

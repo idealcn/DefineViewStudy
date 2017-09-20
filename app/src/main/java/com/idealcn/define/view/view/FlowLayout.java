@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -11,6 +12,9 @@ import android.widget.TextView;
 import com.idealcn.define.view.R;
 import com.idealcn.define.view.listener.OnFlowChildClickListener;
 import com.idealcn.define.view.utils.DensityUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ideal-gn on 2017/9/16.
@@ -21,10 +25,13 @@ public class FlowLayout extends ViewGroup {
 
     private Context context;
     private int gravity;
-//    int color;
-//    int size;
+
     float scaledDensity;
     private OnFlowChildClickListener listener;
+
+    //记录某一行保存的view
+    private SparseArray<List<View>> mLineViewMap = new SparseArray<>();
+    private List<View> mViewList  =  new ArrayList<>();
 
     public FlowLayout(Context context) {
         this(context,null);
@@ -50,44 +57,56 @@ public class FlowLayout extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        int childCount = getChildCount();
-        for (int x = 0; x < childCount; x++) {
-            View child = getChildAt(x);
-           FlowLayoutParams lp = (FlowLayoutParams) child.getLayoutParams();
-           int top,bottom;
-            if (lp.gravity == 1){
-//                top =
+
+        int size = mLineViewMap.size();
+        for (int x = 0; x < size; x++) {
+            List<View> viewList = mLineViewMap.get(x);
+            int maxHeight = 0;
+            for (View view : viewList) {
+                maxHeight = Math.max(maxHeight,view.getMeasuredHeight());
             }
-            child.layout(lp.left,lp.top,lp.left + child.getMeasuredWidth(),lp.top+ child.getMeasuredHeight());
+            for (View view : viewList) {
+                FlowLayoutParams lp = (FlowLayoutParams) view.getLayoutParams();
+                if (view.getHeight()<maxHeight){
+                    view.layout(lp.left,lp.top + (maxHeight - view.getMeasuredHeight())/2,
+                            lp.left + view.getMeasuredWidth(),lp.top + (maxHeight + view.getMeasuredHeight())/2);
+                }else {
+                    view.layout(lp.left,lp.top,lp.left + view.getMeasuredWidth(),lp.top+ view.getMeasuredHeight());
+                }
+            }
         }
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
+        mLineViewMap.clear();
+        mViewList.clear();
         int wSize = MeasureSpec.getSize(widthMeasureSpec);
         int hSize = MeasureSpec.getSize(heightMeasureSpec);
 
 
         int pWidth = 0,pHeight = 0;
         int tempPWidth = 0,tempPHeight = 0;
-        int lineNumber = 1;
+        int lineNumber = 0;
 
         int childWidth  = 0,childHeight = 0;
 
         int childCount = getChildCount();
         for (int x = 0; x < childCount; x++) {
+
             View child = getChildAt(x);
             if (child.getVisibility()==View.GONE)continue;
-            childWidth = child.getMeasuredWidth();
-            childHeight = child.getMeasuredHeight();
+
             measureChildWithMargins(child,
                     widthMeasureSpec,
-                    DensityUtil.dip2px(getContext(),3),//+getPaddingLeft()+getPaddingRight(),
+                    0,
                     heightMeasureSpec,
-                    DensityUtil.dip2px(getContext(),3)//+getPaddingTop()+getPaddingBottom()
+                   0
                     );
+            childWidth = child.getMeasuredWidth();
+            childHeight = child.getMeasuredHeight();
+
 
             FlowLayoutParams lp = (FlowLayoutParams) child.getLayoutParams();
 
@@ -103,8 +122,15 @@ public class FlowLayout extends ViewGroup {
                 tempPHeight = Math.max(childHeight + lp.topMargin + lp.bottomMargin,tempPHeight);
                 lp.left = tempPWidth - childWidth -lp.rightMargin;
             }
-            lp.top = pHeight;
-            if (lineNumber==1){
+
+            List<View> viewList = mLineViewMap.get(lineNumber);
+            if (viewList==null) {
+                viewList = new ArrayList<>();
+                mLineViewMap.put(lineNumber,viewList);
+            }
+            viewList.add(child);
+            lp.top = pHeight + lp.topMargin;
+            if (lineNumber==0){
                 lp.top = lp.topMargin;
             }
             if (x==childCount-1){
@@ -112,7 +138,7 @@ public class FlowLayout extends ViewGroup {
             }
             lp.gravity = gravity;
         }
-        if (lineNumber==1){
+        if (lineNumber==0){
             pWidth = tempPWidth;
             pHeight = tempPHeight;
         }
