@@ -28,6 +28,7 @@
         <activity android:name=".ui.TableActivity" />
         <activity android:name=".ui.FlowLayoutActivity" />
         <activity android:name=".ui.PaddingActivity" />
+        <activity android:name=".ui.TimeAxisActivity" />
     </application>
 
 

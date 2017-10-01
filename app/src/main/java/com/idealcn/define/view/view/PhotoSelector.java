@@ -25,27 +25,27 @@ import java.util.List;
 
 public class PhotoSelector extends ViewGroup {
 
-    private   int horizontalSpace;
+    private int horizontalSpace;
     private int verticalSpace;
     private int columns;
     private float scaledDensity;
-    private  View addView;
+    private View addView;
     private List<View> viewList = new ArrayList<>();
     private AlertDialog dialog;
-    private  OnAddPhotoListener listener;
+    private OnAddPhotoListener listener;
 
 
-    private int dipToPx(int dpValue){
+    private int dipToPx(int dpValue) {
         return (int) (scaledDensity * dpValue + 0.5f);
     }
 
 
     public PhotoSelector(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public PhotoSelector(Context context, AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
     public PhotoSelector(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -69,32 +69,32 @@ public class PhotoSelector extends ViewGroup {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int width = MeasureSpec.getSize(widthMeasureSpec);
 //        int height = MeasureSpec.getSize(heightMeasureSpec);
-        int childWidth = (int) ((width - horizontalSpace * columns)/columns + .5f);
+        int childWidth = (int) ((width - horizontalSpace * columns) / columns + .5f);
         int childHeight = childWidth;
 
         int childCount = viewList.size();
         for (int x = 0; x < childCount; x++) {
             View child = viewList.get(x);
-           PhotoParams lp = (PhotoParams) child.getLayoutParams();
-           if (lp==null) {
-               lp = new PhotoParams(childWidth, childHeight);
-           }
+            PhotoParams lp = (PhotoParams) child.getLayoutParams();
+            if (lp == null) {
+                lp = new PhotoParams(childWidth, childHeight);
+            }
 
             lp.width = childWidth;
             lp.height = childHeight;
-           lp.left = x%columns * childWidth + (x%columns+1) * horizontalSpace;
-           lp.top = x/columns * (childHeight + verticalSpace) + verticalSpace;
+            lp.left = x % columns * childWidth + (x % columns + 1) * horizontalSpace;
+            lp.top = x / columns * (childHeight + verticalSpace) + verticalSpace;
             child.setLayoutParams(lp);
         }
 
-        if (childCount<=columns)
-            setMeasuredDimension(childWidth*childCount,childHeight);
+        if (childCount <= columns)
+            setMeasuredDimension(childWidth * childCount, childHeight);
         else {
-            int heightCount = childCount%columns!=0?(childCount/columns+1):childCount/columns;
-            setMeasuredDimension(childWidth*columns,childHeight*heightCount);
+            int heightCount = childCount % columns != 0 ? (childCount / columns + 1) : childCount / columns;
+            setMeasuredDimension(childWidth * columns, childHeight * heightCount);
         }
         //测量并确定子view的大小
-        measureChildren(widthMeasureSpec,heightMeasureSpec);
+        measureChildren(widthMeasureSpec, heightMeasureSpec);
     }
 
     @Override
@@ -103,7 +103,7 @@ public class PhotoSelector extends ViewGroup {
         for (int x = 0; x < childCount; x++) {
             View child = viewList.get(x);
             PhotoParams lp = (PhotoParams) child.getLayoutParams();
-            child.layout(lp.left,lp.top,lp.left + child.getMeasuredWidth() + horizontalSpace,lp.top + child.getMeasuredHeight() + verticalSpace);
+            child.layout(lp.left, lp.top, lp.left + child.getMeasuredWidth() + horizontalSpace, lp.top + child.getMeasuredHeight() + verticalSpace);
         }
     }
 
@@ -123,14 +123,14 @@ public class PhotoSelector extends ViewGroup {
             @Override
             public void onClick(View v) {
 
-              final   int size = viewList.size();
-                if (size>=8){
+                final int size = viewList.size();
+                if (size >= 8) {
                     Toast.makeText(getContext(), "仅能添加7张图片", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
 
-               AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
                 builder.setSingleChoiceItems(new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, new String[]{"相册", "拍照"})
                         , -1, new DialogInterface.OnClickListener() {
@@ -138,13 +138,13 @@ public class PhotoSelector extends ViewGroup {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
 
-                                switch (which){
+                                switch (which) {
                                     case 0: {
                                         ImageView view = new ImageView(getContext());
                                         Bitmap bitmap = listener.addByCamera();
                                         view.setImageBitmap(bitmap);
-                                        viewList.add(size -1,view);
-                                        PhotoSelector.this.addView(view,size-1);
+                                        viewList.add(size - 1, view);
+                                        PhotoSelector.this.addView(view, size - 1);
                                         requestLayout();
                                         break;
                                     }
@@ -152,12 +152,13 @@ public class PhotoSelector extends ViewGroup {
                                         ImageView view = new ImageView(getContext());
                                         Bitmap bitmap = listener.addByGallery();
                                         view.setImageBitmap(bitmap);
-                                        viewList.add(size -1,view);
-                                        PhotoSelector.this.addView(view,size-1);
+                                        viewList.add(size - 1, view);
+                                        PhotoSelector.this.addView(view, size - 1);
                                         requestLayout();
                                         break;
                                     }
-                                        default:break;
+                                    default:
+                                        break;
                                 }
                             }
                         });
@@ -170,7 +171,7 @@ public class PhotoSelector extends ViewGroup {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        if (dialog!=null) {
+        if (dialog != null) {
             dialog.dismiss();
             dialog = null;
         }
@@ -178,7 +179,7 @@ public class PhotoSelector extends ViewGroup {
 
     @Override
     public LayoutParams generateLayoutParams(AttributeSet attrs) {
-        return new PhotoParams(getContext(),attrs);
+        return new PhotoParams(getContext(), attrs);
     }
 
     @Override
@@ -188,7 +189,7 @@ public class PhotoSelector extends ViewGroup {
 
     @Override
     protected LayoutParams generateDefaultLayoutParams() {
-        return new PhotoParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+        return new PhotoParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
     }
 
     @Override
@@ -196,9 +197,9 @@ public class PhotoSelector extends ViewGroup {
         return p instanceof PhotoParams;
     }
 
-    public static class PhotoParams extends LayoutParams{
+    public static class PhotoParams extends LayoutParams {
 
-        public int left,top;
+        public int left, top;
 
 
         public PhotoParams(Context c, AttributeSet attrs) {

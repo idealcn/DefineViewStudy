@@ -67,7 +67,6 @@ public class FlowChildView extends View {
         paint.setStyle(Paint.Style.FILL);
         paint.setTextAlign(Paint.Align.CENTER);
 
-        paint.getTextBounds(text, 0, text.length(), rect);
 
         fontMetrics = paint.getFontMetrics();
 //      mTextHeight = (int) (fontMetrics.bottom - fontMetrics.top);//19
@@ -81,8 +80,12 @@ public class FlowChildView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        paint.getTextBounds(text,0,text.length(),rect);
+
         int childWidth = getChildWidth(widthMeasureSpec);
         int childHeight = getChildHeight(heightMeasureSpec);
+
 
         setMeasuredDimension(childWidth, childHeight);
         rect.set(0,0,childWidth,childHeight);

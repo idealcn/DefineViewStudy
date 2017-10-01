@@ -93,10 +93,14 @@ public class FlowLayout extends ViewGroup {
         int childWidth  = 0,childHeight = 0;
 
         int childCount = getChildCount();
+        boolean flag = false;
         for (int x = 0; x < childCount; x++) {
 
             View child = getChildAt(x);
-            if (child.getVisibility()==View.GONE)continue;
+            if (child.getVisibility()==View.GONE){
+//                pHeight += tempPHeight;
+                continue;
+            }
 
             measureChildWithMargins(child,
                     widthMeasureSpec,

@@ -8,56 +8,80 @@
             type="com.idealcn.define.view.ui.MainFragment"/>
     </data>
 
-    <LinearLayout
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
+
+
+    <com.idealcn.define.view.view.FlowLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
+        <com.idealcn.define.view.view.FlowChildView
+            style="@style/FlowChildView"
+            define:textColor="@color/colorAccent"
+            define:textSize="14sp"
+            define:text="进度条"
+            android:id="@+id/progressBar"
+            android:onClick="@{click}"
+            />
 
-        <Button
-            android:onClick="@{click}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="进度条"
-            android:id="@+id/progressBar"/>
-        <Button
-            android:onClick="@{click}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="时钟"
-            android:id="@+id/clock"/>
-        <Button
-            android:onClick="@{click}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="饼状图"
-            android:id="@+id/round_cake"/>
-        <Button
-            android:onClick="@{click}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="拖拽"
-            android:id="@+id/drag"/>
 
-        <Button
-            android:onClick="@{click}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="微信图片选择器"
-            android:id="@+id/picSelector"/>
 
-        <Button
+        <com.idealcn.define.view.view.FlowChildView
+            style="@style/FlowChildView"
+            define:textColor="@color/colorAccent"
+            define:textSize="14sp"
+            define:text="时钟"
+            android:id="@+id/clock"
             android:onClick="@{click}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="流式布局"
-            android:id="@+id/flowLayout"/>
 
-        <!--<Button-->
-            <!--android:onClick="@{click}"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="padding"-->
-            <!--android:id="@+id/padding"/>-->
-    </LinearLayout>
+
+            />
+
+       <!-- <com.idealcn.define.view.view.FlowChildView
+            style="@style/FlowChildView"
+            define:textColor="@color/colorAccent"
+            define:textSize="14sp"
+            define:text="饼状图"
+            android:id="@+id/round_cake"
+            android:onClick="@{click}"
+            />
+
+
+        <com.idealcn.define.view.view.FlowChildView
+            style="@style/FlowChildView"
+            define:textColor="@color/colorAccent"
+            define:textSize="14sp"
+            define:text="拖拽"
+            android:id="@+id/drag"
+            android:onClick="@{click}"
+            />-->
+
+
+        <com.idealcn.define.view.view.FlowChildView
+            style="@style/FlowChildView"
+            define:textColor="#456789"
+            define:textSize="14sp"
+            define:text="微信图片选择器"
+            android:id="@+id/picSelector"
+            android:onClick="@{click}"
+            />
+
+        <com.idealcn.define.view.view.FlowChildView
+            style="@style/FlowChildView"
+            define:textColor="#123456"
+            define:textSize="14sp"
+            define:text="流式布局"
+            android:id="@+id/flowLayout"
+            android:onClick="@{click}"
+            />
+
+        <com.idealcn.define.view.view.FlowChildView
+            style="@style/FlowChildView"
+            define:textColor="#123456"
+            define:textSize="14sp"
+            define:text="时间轴"
+            android:id="@+id/timeAxis"
+            android:onClick="@{click}"
+            />
+
+
+    </com.idealcn.define.view.view.FlowLayout>
 </layout>

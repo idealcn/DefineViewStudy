@@ -60,7 +60,8 @@ public class MainFragment extends Fragment implements View.OnClickListener{
         switch (v.getId()){
             case R.id.progressBar:
                 listener.change("进度条");
-                startActivity(new Intent(mainActivity, ProgressBarActivity.class));
+                mainActivity.onChildClick(0);
+//                startActivity(new Intent(mainActivity, ProgressBarActivity.class));
                 break;
             case R.id.clock:
                 listener.change("时钟");
@@ -68,11 +69,11 @@ public class MainFragment extends Fragment implements View.OnClickListener{
                 break;
             case R.id.round_cake:
                 listener.change("饼状图");
-                startActivity(new Intent(mainActivity,RoundCakeActivity.class));
+//                startActivity(new Intent(mainActivity,RoundCakeActivity.class));
                 break;
             case R.id.drag:
                 listener.change("拖拽");
-                startActivity(new Intent(mainActivity,DragActivity.class));
+//                startActivity(new Intent(mainActivity,DragActivity.class));
                 break;
             case R.id.picSelector:
                 listener.change("图片选择器");
@@ -82,10 +83,9 @@ public class MainFragment extends Fragment implements View.OnClickListener{
                 listener.change("流式布局");
                 startActivity(new Intent(mainActivity,FlowLayoutActivity.class));
                 break;
-//            case R.id.padding:
-//                listener.change("padding");
-//                startActivity(new Intent(mainActivity,PaddingActivity.class));
-//                break;
+            case R.id.timeAxis:
+                startActivity(new Intent(mainActivity,TimeAxisActivity.class));
+                break;
             default:break;
         }
     }

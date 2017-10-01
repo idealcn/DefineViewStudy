@@ -10,7 +10,7 @@
             android:background="@color/colorPrimaryDark"/>
 
         <TextView
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:background="@color/colorAccent"/>
