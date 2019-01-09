@@ -1,6 +1,7 @@
 package com.idealcn.define.view.view;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.ViewDragHelper;
@@ -37,7 +38,7 @@ public class MyViewGroup extends ViewGroup {
     //实现ViewDragHelper.Callback相关方法
     private class ViewDragHelperCallBack extends ViewDragHelper.Callback {
         @Override
-        public boolean tryCaptureView(View child, int pointerId) {
+        public boolean tryCaptureView(@NonNull View child, int pointerId) {
             //返回ture则表示可以捕获该view
             return child == mContentView || child == mMenuView;
         }
@@ -45,7 +46,7 @@ public class MyViewGroup extends ViewGroup {
 
 
         @Override
-        public int clampViewPositionHorizontal(View child, int left, int dx) {
+        public int clampViewPositionHorizontal(@NonNull View child, int left, int dx) {
             //手指触摸移动时回调, left表示要到的x坐标
             if (child==mMenuView){
                 if (left<0)return 0;
@@ -78,7 +79,7 @@ public class MyViewGroup extends ViewGroup {
         }
 
         @Override
-        public void onViewReleased(View releasedChild, float xvel, float yvel) {
+        public void onViewReleased(@NonNull View releasedChild, float xvel, float yvel) {
             //手指抬起释放时回调
 
             helper.settleCapturedViewAt(releasedChild.getLeft(), releasedChild.getTop());
@@ -86,15 +87,15 @@ public class MyViewGroup extends ViewGroup {
         }
 
         @Override
-        public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) {
+        public void onViewPositionChanged(@NonNull View changedView, int left, int top, int dx, int dy) {
             //mDrawerView完全覆盖屏幕则防止过度绘制
 //            changedView.layout(left,top,left+changedView.getWidth(),top+changedView.getHeight());
             helper.smoothSlideViewTo(changedView,left,top);
             Log.d("drag", "onViewPositionChanged: "+left+"-----"+top);
-            requestLayout();
+//            requestLayout();
         }
         @Override
-        public int getViewVerticalDragRange(View child) {
+        public int getViewVerticalDragRange(@NonNull View child) {
             if (mMenuView == child)
                 return metrics.heightPixels - mMenuView.getHeight();
             return
