@@ -82,6 +82,13 @@
             android:onClick="@{click}"
             />
 
-
+        <com.idealcn.define.view.view.FlowChildView
+            style="@style/FlowChildView"
+            define:textColor="#123456"
+            define:textSize="14sp"
+            define:text="View的位置属性变化"
+            android:id="@+id/leftAndTop"
+            android:onClick="@{click}"
+            />
     </com.idealcn.define.view.view.FlowLayout>
 </layout>
