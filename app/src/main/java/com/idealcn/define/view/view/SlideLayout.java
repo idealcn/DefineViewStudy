@@ -101,6 +101,8 @@ public class SlideLayout extends ViewGroup {
                 float x = mContentView.getX();
                 mContentView.layout((int) x,0, (int) (mContentView.getWidth() + x),getHeight());
                 mMenuView.layout((int) (mContentView.getWidth() + x),0, (int) (mContentView.getWidth() + x + mMenuView.getWidth()),getHeight());
+                mContentView.offsetTopAndBottom(0);
+
             }
 
             if (changedView == mMenuView){
@@ -108,7 +110,6 @@ public class SlideLayout extends ViewGroup {
                 mMenuView.layout((int) x,0, (int) (x+mMenuView.getWidth()),getHeight());
                 mContentView.layout((int)(x - mContentView.getWidth()),0, (int) x,getHeight());
             }
-
           invalidate();
         }
         @Override
@@ -124,7 +125,6 @@ public class SlideLayout extends ViewGroup {
         @Override
         public void onViewDragStateChanged(int state) {
             super.onViewDragStateChanged(state);
-            System.out.println("onViewDragStateChanged:  state: "+state);
         }
     }
 
