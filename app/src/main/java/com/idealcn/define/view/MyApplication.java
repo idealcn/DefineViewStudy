@@ -22,7 +22,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        DisplayMetrics metrics = getResources().getDisplayMetrics();
+       /* DisplayMetrics metrics = getResources().getDisplayMetrics();
         int densityDpi = metrics.densityDpi;
         float scaledDensity = metrics.scaledDensity;
         float density = metrics.density;
@@ -41,6 +41,6 @@ public class MyApplication extends Application {
                 e.printStackTrace();
             }
 
-        }
+        }*/
     }
 }
