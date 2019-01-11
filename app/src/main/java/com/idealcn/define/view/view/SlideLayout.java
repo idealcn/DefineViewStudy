@@ -78,13 +78,34 @@ public class SlideLayout extends ViewGroup {
         @Override
         public void onViewReleased(@NonNull View releasedChild, float xvel, float yvel) {
             logger.info("onViewReleased-------------");
-            logger.info("context: x: "+mContentView.getX());
-            logger.info("menu: x: "+mMenuView.getX());
+            float mContentViewX = mContentView.getX();
+            float mMenuViewX = mMenuView.getX();
+            int mMenuWidth = mMenuView.getWidth();
+            int mContentWidth = mContentView.getWidth();
+            logger.info("context: x: "+ mContentViewX);
+            logger.info("menu: x: "+ mMenuViewX);
             logger.info("ViewGroup: x: "+getX());
             logger.info("-------------onViewReleased");
             //手指抬起释放时回调
-            helper.smoothSlideViewTo(mContentView, (int) mContentView.getX(),0);
-            helper.smoothSlideViewTo(mMenuView, (int) (mMenuView.getX()),0);
+            if (releasedChild == mContentView){
+                if (mMenuWidth /2 > Math.abs(mContentViewX)){
+                    helper.smoothSlideViewTo(mMenuView, mContentWidth,0);
+                    helper.smoothSlideViewTo(mContentView,0, 0);
+                }else {
+                    helper.smoothSlideViewTo(mMenuView, (int) (mContentWidth - mMenuWidth),0);
+                    helper.smoothSlideViewTo(mContentView,-mMenuWidth, 0);
+                }
+            }
+
+            if (releasedChild == mMenuView){
+                if (mContentWidth - mMenuViewX < mMenuWidth/2){
+                    helper.smoothSlideViewTo(mMenuView,mContentWidth,0);
+                    helper.smoothSlideViewTo(mContentView,0,0);
+                }else {
+                    helper.smoothSlideViewTo(mMenuView, (int) (mContentWidth - mMenuWidth),0);
+                    helper.smoothSlideViewTo(mContentView,-mMenuWidth, 0);
+                }
+            }
             invalidate();
         }
 
