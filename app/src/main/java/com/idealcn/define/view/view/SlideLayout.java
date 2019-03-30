@@ -27,8 +27,7 @@ public class SlideLayout extends ViewGroup {
     private ViewDragHelper helper;
     private View mContentView;
     private View mMenuView;
-    private int mCurrentTop = 0;
-    private DisplayMetrics metrics;
+
     public SlideLayout(Context context) {
         this(context,null);
     }
@@ -78,9 +77,9 @@ public class SlideLayout extends ViewGroup {
         @Override
         public void onViewReleased(@NonNull View releasedChild, float xvel, float yvel) {
             logger.info("onViewReleased-------------");
-            logger.info("context: x: "+mContentView.getX());
-            logger.info("menu: x: "+mMenuView.getX());
-            logger.info("ViewGroup: x: "+getX());
+            logger.info("context: x: "+mContentView.getX()+", left: "+mContentView.getLeft());
+            logger.info("menu: x: "+mMenuView.getX()+", left: "+mMenuView.getLeft());
+            logger.info("ViewGroup: x: "+getX()+",left: "+getLeft());
             logger.info("-------------onViewReleased");
             //手指抬起释放时回调
             helper.smoothSlideViewTo(mContentView, (int) mContentView.getX(),0);
@@ -92,16 +91,15 @@ public class SlideLayout extends ViewGroup {
         public void onViewPositionChanged(@NonNull View changedView, int left, int top, int dx, int dy) {
 
             logger.info("onViewPositionChanged-------------");
-            logger.info("context: x: "+mContentView.getX());
-            logger.info("menu: x: "+mMenuView.getX());
-            logger.info("ViewGroup: x: "+getX());
+            logger.info("context: x: "+mContentView.getX()+", left: "+mContentView.getLeft());
+            logger.info("menu: x: "+mMenuView.getX()+", left: "+mMenuView.getLeft());
+            logger.info("ViewGroup: x: "+getX()+",left: "+getLeft());
             logger.info("-------------onViewPositionChanged");
 
             if (changedView==mContentView){
                 float x = mContentView.getX();
                 mContentView.layout((int) x,0, (int) (mContentView.getWidth() + x),getHeight());
                 mMenuView.layout((int) (mContentView.getWidth() + x),0, (int) (mContentView.getWidth() + x + mMenuView.getWidth()),getHeight());
-                mContentView.offsetTopAndBottom(0);
 
             }
 
@@ -135,7 +133,6 @@ public class SlideLayout extends ViewGroup {
         mContentView = getChildAt(0);
         helper = ViewDragHelper.create(this,1, new ViewDragHelperCallBack());
         helper.setEdgeTrackingEnabled(ViewDragHelper.EDGE_LEFT|ViewDragHelper.EDGE_RIGHT);
-        metrics = getResources().getDisplayMetrics();
     }
 
 
