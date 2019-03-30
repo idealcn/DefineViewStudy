@@ -18,6 +18,7 @@ import com.idealcn.define.view.utils.DensityUtil;
 
 /**
  * Created by ideal-gn on 2017/9/17.
+ * 标签view
  */
 
 public class FlowChildView extends View {

@@ -197,19 +197,31 @@
             style="@style/FlowChildView"
             android:text="黄盖"/>
 
-        <TextView
-            android:gravity="center"
-            style="@style/FlowChildView"
-            android:text="太史慈"/>
 
-        <TextView
-            android:gravity="center"
-            style="@style/FlowChildView"
-            android:text="丁奉"/>
 
-        <TextView
-            android:gravity="center"
+
+        <com.idealcn.define.view.view.FlowChildView
             style="@style/FlowChildView"
-            android:text="周瑜"/>
+            define:text="太史慈"
+            define:textSize = "14sp"
+            define:textColor = "@color/colorPrimary"
+            />
+
+
+
+        <com.idealcn.define.view.view.FlowChildView
+            style="@style/FlowChildView"
+            define:text="丁奉"
+            define:textSize = "14sp"
+            define:textColor = "@color/colorPrimary"
+            />
+
+
+        <com.idealcn.define.view.view.FlowChildView
+            style="@style/FlowChildView"
+            define:text="周瑜"
+            define:textSize = "14sp"
+            define:textColor = "@color/colorPrimary"
+            />
     </com.idealcn.define.view.view.FlowLayout>
 </layout>

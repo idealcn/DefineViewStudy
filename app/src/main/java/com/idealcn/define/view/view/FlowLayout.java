@@ -18,15 +18,14 @@ import java.util.List;
 
 /**
  * Created by ideal-gn on 2017/9/16.
- * 流式布局
+ * 标签布局容器
  */
 
 public class FlowLayout extends ViewGroup {
 
-    private Context context;
     private int gravity;
 
-    float scaledDensity;
+    private float scaledDensity;
     private OnFlowChildClickListener listener;
 
     //记录某一行保存的view
@@ -61,6 +60,7 @@ public class FlowLayout extends ViewGroup {
         int size = mLineViewMap.size();
         for (int x = 0; x < size; x++) {
             List<View> viewList = mLineViewMap.get(x);
+            //该行的最大高度
             int maxHeight = 0;
             for (View view : viewList) {
                 maxHeight = Math.max(maxHeight,view.getMeasuredHeight());
@@ -82,32 +82,35 @@ public class FlowLayout extends ViewGroup {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         mLineViewMap.clear();
         mViewList.clear();
+        //父容器为FlowLayout指定的宽度
         int wSize = MeasureSpec.getSize(widthMeasureSpec);
+        //父容器为FlowLayout指定的高度
         int hSize = MeasureSpec.getSize(heightMeasureSpec);
 
-
+        //该容器允许的最大宽度和高度
         int pWidth = 0,pHeight = 0;
+        //每次测量后,当前行的累加后的宽和当前行最大高度
         int tempPWidth = 0,tempPHeight = 0;
+        //子view处于第几行
         int lineNumber = 0;
-
+        //某个子view的宽和高
         int childWidth  = 0,childHeight = 0;
-
+        //子view个数
         int childCount = getChildCount();
-        boolean flag = false;
         for (int x = 0; x < childCount; x++) {
 
             View child = getChildAt(x);
             if (child.getVisibility()==View.GONE){
-//                pHeight += tempPHeight;
                 continue;
             }
-
+            //测量子view,并且考虑了该子view的padding和margin
             measureChildWithMargins(child,
                     widthMeasureSpec,
                     0,
                     heightMeasureSpec,
                    0
                     );
+            //得到该子view的宽和高
             childWidth = child.getMeasuredWidth();
             childHeight = child.getMeasuredHeight();
 
@@ -117,35 +120,41 @@ public class FlowLayout extends ViewGroup {
             if (tempPWidth + childWidth + lp.leftMargin + lp.rightMargin >= wSize){
                 lineNumber ++;
                 lp.left = lp.leftMargin;
+                //换行后,求出该容器的最大宽度
                 pWidth = Math.max(tempPWidth,pWidth);
+                //换行后,累加该容器的高度
                 pHeight += tempPHeight;
                 tempPWidth = childWidth +lp.leftMargin + lp.rightMargin;
                 tempPHeight = childHeight;
             }else {
-                tempPWidth += childWidth + lp.leftMargin + lp.rightMargin;
+                //当前行累加后的宽度
+                tempPWidth += (childWidth + lp.leftMargin + lp.rightMargin);
+                //当前行最大高度
                 tempPHeight = Math.max(childHeight + lp.topMargin + lp.bottomMargin,tempPHeight);
+                //子view距离该容器左边界的距离
                 lp.left = tempPWidth - childWidth -lp.rightMargin;
             }
+            //子view距离父容器上边界的距离
+            lp.top = pHeight + lp.topMargin;
 
+            if (x==childCount-1){
+                //遍历到最后一个子view,累加该容器高度
+                pHeight += tempPHeight;
+                //遍历到最后一个子view,求出该容器的最大宽度
+                pWidth = Math.max(tempPWidth, pWidth);
+            }
+            lp.gravity = gravity;
+
+
+            //添加该子view
             List<View> viewList = mLineViewMap.get(lineNumber);
             if (viewList==null) {
                 viewList = new ArrayList<>();
                 mLineViewMap.put(lineNumber,viewList);
             }
             viewList.add(child);
-            lp.top = pHeight + lp.topMargin;
-            if (lineNumber==0){
-                lp.top = lp.topMargin;
-            }
-            if (x==childCount-1){
-                pHeight += tempPHeight;
-            }
-            lp.gravity = gravity;
         }
-        if (lineNumber==0){
-            pWidth = tempPWidth;
-            pHeight = tempPHeight;
-        }
+
         setMeasuredDimension(pWidth,pHeight+ DensityUtil.dip2px(getContext(),5));
     }
 
@@ -160,7 +169,6 @@ public class FlowLayout extends ViewGroup {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        context = getContext();
         listener = (OnFlowChildClickListener) getContext();
 
         int childCount = getChildCount();
@@ -210,19 +218,19 @@ public class FlowLayout extends ViewGroup {
     //自定义LayoutParams的目的是将子view的left和top在测量的时候就赋值，在onLayout的时候直接取出使用
     public static class FlowLayoutParams extends ViewGroup.MarginLayoutParams{
 
-        public int left,top;
-        public int gravity;
+        int left,top;
+        int gravity;
         public int maxHeight;//记录某一行某个最大高度
 
-        public FlowLayoutParams(Context c, AttributeSet attrs) {
+        FlowLayoutParams(Context c, AttributeSet attrs) {
             super(c, attrs);
         }
 
-        public FlowLayoutParams(int width, int height) {
+        FlowLayoutParams(int width, int height) {
             super(width, height);
         }
 
-        public FlowLayoutParams(LayoutParams source) {
+        FlowLayoutParams(LayoutParams source) {
             super(source);
         }
     }

@@ -19,6 +19,13 @@ ViewGroup如何决定子view的宽高和测量模式,以高度为例
      - 子view的高度设置为match_parent或者wrap_content,子view的测量模式为MeasureSpec.AT_MOST,也就是说子view的高度不能超过ViewGroup的高度
 3. 具体可查看ViewGroup.getChildMeasureSpec()方法的源码
 
+相关方法: 
+``` java
+  public static int resolveSize(int size, int measureSpec) {
+          return resolveSizeAndState(size, measureSpec, 0) & MEASURED_SIZE_MASK;
+      }
+```
+
 requestLayout和invalidate()
 
 1. requestLayout()会调用ViewParent.requestLayout(),并为重新布局打上标记,这个调用过程采用的责任链模式,最终调用了ViewRootImpl.requestLayout(), 然后调用scheduleTraversals,在这个方法中开启了一个子线程去执行doTraversal(),在这个方法中执行了performTraversals(),然后重新执行三大流程
