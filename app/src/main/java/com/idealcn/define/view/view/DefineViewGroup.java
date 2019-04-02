@@ -5,6 +5,9 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
+/**
+ * todo : 待解决换行导致显示不全的问题
+ */
 public class DefineViewGroup extends ViewGroup {
 
     public DefineViewGroup(Context context) {
@@ -34,7 +37,7 @@ public class DefineViewGroup extends ViewGroup {
             child.getMeasureWidth可以给出宽高
              */
             MarginLayoutParams layoutParams = (MarginLayoutParams) child.getLayoutParams();
-            if (lastParentWidth + child.getMeasuredWidth() >= pWidth) {
+            if (lastParentWidth + child.getMeasuredWidth() +layoutParams.leftMargin + layoutParams.rightMargin >= pWidth) {
                 //换行
                 lastParentWidth = 0;
                 lastParentHeight += tempLastLineHeight;
@@ -42,9 +45,9 @@ public class DefineViewGroup extends ViewGroup {
 
 
             child.layout(layoutParams.leftMargin + lastParentWidth,
-                    lastParentHeight,
+                    lastParentHeight+layoutParams.topMargin,
                     layoutParams.leftMargin + lastParentWidth + child.getMeasuredWidth() + layoutParams.rightMargin,
-                    lastParentHeight + child.getMeasuredHeight());
+                    lastParentHeight + child.getMeasuredHeight() + layoutParams.bottomMargin);
 
             lastParentWidth += child.getMeasuredWidth() + layoutParams.leftMargin + layoutParams.rightMargin;
 
@@ -65,7 +68,7 @@ public class DefineViewGroup extends ViewGroup {
             View child = getChildAt(x);
             if (child.getVisibility() == View.GONE) continue;
             MarginLayoutParams layoutParams = (MarginLayoutParams) child.getLayoutParams();
-            if (widthUsed >= getMeasuredWidth()) {
+            if (widthUsed + child.getMeasuredWidth() + layoutParams.leftMargin + layoutParams.rightMargin >= getMeasuredWidth()) {
                 widthUsed = 0;
                 heightUsed = tempHeightUsed;
             }
