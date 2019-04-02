@@ -89,6 +89,9 @@ public class MainFragment extends Fragment implements View.OnClickListener{
             case R.id.leftAndTop:
                 startActivity(new Intent(mainActivity,PositionActivity.class));
                 break;
+            case R.id.defineViewGroup:
+                startActivity(new Intent(mainActivity,DefineViewGroupActivity.class));
+                break;
             default:break;
         }
     }

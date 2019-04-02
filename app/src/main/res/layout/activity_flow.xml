@@ -205,6 +205,8 @@
             define:text="太史慈"
             define:textSize = "14sp"
             define:textColor = "@color/colorPrimary"
+            define:boundary_line_color="@color/colorPrimaryDark"
+            define:boundary_line_width="3dp"
             />
 
 
@@ -222,6 +224,8 @@
             define:text="周瑜"
             define:textSize = "14sp"
             define:textColor = "@color/colorPrimary"
+            define:boundary_line_color="@color/colorPrimaryDark"
+            define:boundary_line_width="3dp"
             />
     </com.idealcn.define.view.view.FlowLayout>
 </layout>

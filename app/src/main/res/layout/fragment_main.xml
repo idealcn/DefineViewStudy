@@ -90,5 +90,14 @@
             android:id="@+id/leftAndTop"
             android:onClick="@{click}"
             />
+
+        <com.idealcn.define.view.view.FlowChildView
+            style="@style/FlowChildView"
+            define:textColor="#123456"
+            define:textSize="14sp"
+            define:text="自定义ViewGroup"
+            android:id="@+id/defineViewGroup"
+            android:onClick="@{click}"
+            />
     </com.idealcn.define.view.view.FlowLayout>
 </layout>
