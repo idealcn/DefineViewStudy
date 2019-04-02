@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 /**
  * 在{@link #onMeasure(int, int)}方法中,通过{@link #measureChildWithMargins(View, int, int, int, int)}来测量子view的宽和高,使用到了这个方法的第三个参数widthUsed
  * 和第五个参数heightUsed.
+ * 在{@link #onLayout(boolean, int, int, int, int)}中,根据view的宽高和margin即刻正确放置该view
  */
 public class DefineViewGroup extends ViewGroup {
 
@@ -66,22 +67,26 @@ public class DefineViewGroup extends ViewGroup {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        //super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int childCount = getChildCount();
         int widthUsed = 0, heightUsed = 0;
         int tempHeightUsed = 0;
+        int maxWidth = 0;
         for (int x = 0; x < childCount; x++) {
             View child = getChildAt(x);
             if (child.getVisibility() == View.GONE) continue;
             MarginLayoutParams layoutParams = (MarginLayoutParams) child.getLayoutParams();
             if (widthUsed + child.getMeasuredWidth() + layoutParams.leftMargin + layoutParams.rightMargin >= getMeasuredWidth()) {
                 widthUsed = 0;
-                heightUsed = tempHeightUsed;
+                heightUsed += tempHeightUsed;
+                tempHeightUsed = 0;
             }
             measureChildWithMargins(child, widthMeasureSpec, widthUsed, heightMeasureSpec, heightUsed);
             widthUsed += child.getMeasuredWidth() + layoutParams.leftMargin + layoutParams.rightMargin;
             tempHeightUsed = Math.max(tempHeightUsed, child.getMeasuredHeight() + layoutParams.topMargin + layoutParams.bottomMargin);
+            maxWidth = Math.max(maxWidth, widthUsed);
         }
+        setMeasuredDimension(maxWidth, heightUsed);
     }
 
 
