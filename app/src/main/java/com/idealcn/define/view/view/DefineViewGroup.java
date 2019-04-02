@@ -6,7 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * todo : 待解决换行导致显示不全的问题
+ * 在{@link #onMeasure(int, int)}方法中,通过{@link #measureChildWithMargins(View, int, int, int, int)}来测量子view的宽和高,使用到了这个方法的第三个参数widthUsed
+ * 和第五个参数heightUsed.
  */
 public class DefineViewGroup extends ViewGroup {
 
@@ -26,7 +27,6 @@ public class DefineViewGroup extends ViewGroup {
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         int pWidth = getWidth(), pHeight = getHeight();
         int childCount = getChildCount();
-        int lastChildWidth = 0;
         int lastParentWidth = 0, lastParentHeight = 0;
         int tempLastLineHeight = 0;
         for (int x = 0; x < childCount; x++) {
@@ -34,11 +34,17 @@ public class DefineViewGroup extends ViewGroup {
             /*
             在这里使用child.getWidth = 0,child.getHeight = 0,
             Layoutparams只能给出设置了具体数值的属性
-            child.getMeasureWidth可以给出宽高
+            child.getMeasureWidth可以给出宽
              */
             MarginLayoutParams layoutParams = (MarginLayoutParams) child.getLayoutParams();
+
+            if (lastParentHeight + layoutParams.topMargin + layoutParams.bottomMargin + child.getMeasuredHeight() >= pHeight){
+                //超过屏幕高度了
+                return;
+            }
+
             if (lastParentWidth + child.getMeasuredWidth() +layoutParams.leftMargin + layoutParams.rightMargin >= pWidth) {
-                //换行
+                //重置相当于换行
                 lastParentWidth = 0;
                 lastParentHeight += tempLastLineHeight;
             }
