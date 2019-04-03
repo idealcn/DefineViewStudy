@@ -39,7 +39,7 @@ public class SlideLayout extends ViewGroup {
 
     public SlideLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        logger = LoggerUtil.INSTANCE.logger;
+        logger = LoggerUtil.getInstance();
 
     }
 

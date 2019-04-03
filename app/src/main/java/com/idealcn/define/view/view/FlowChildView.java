@@ -9,8 +9,11 @@ import android.graphics.CornerPathEffect;
 import android.graphics.Paint;
 import android.graphics.PathEffect;
 import android.graphics.Rect;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Build;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -35,11 +38,11 @@ public class FlowChildView extends View {
 
 
     /* 标签边框 */
-    private Paint mBoundaryPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    //标签边框的颜色
-    private int boundaryColor = Color.BLACK;
-    private int boundaryWidth = 1;
-    private   PathEffect pathEffect;
+//    private Paint mBoundaryPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+//    //标签边框的颜色
+//    private int boundaryColor = Color.BLACK;
+//    private int boundaryWidth = 1;
+//    private   PathEffect pathEffect;
 
 
     private OnFlowChildClickListener listener;
@@ -65,8 +68,8 @@ public class FlowChildView extends View {
             text = typedArray.getNonResourceString(R.styleable.FlowChildView_text);
             textColor = typedArray.getColor(R.styleable.FlowChildView_textColor, Color.WHITE);
             textSize = typedArray.getDimensionPixelSize(R.styleable.FlowChildView_textSize, DensityUtil.dip2px(context, 14));
-            boundaryColor = typedArray.getColor(R.styleable.FlowChildView_boundary_line_color, Color.BLACK);
-            boundaryWidth = typedArray.getDimensionPixelSize(R.styleable.FlowChildView_boundary_line_width, DensityUtil.dip2px(context, 1));
+//            boundaryColor = typedArray.getColor(R.styleable.FlowChildView_boundary_line_color, Color.BLACK);
+//            boundaryWidth = typedArray.getDimensionPixelSize(R.styleable.FlowChildView_boundary_line_width, DensityUtil.dip2px(context, 1));
         } finally {
             typedArray.recycle();
         }
@@ -89,10 +92,10 @@ public class FlowChildView extends View {
 //      float leading = fontMetrics.leading;
 
         /* 边框 */
-        mBoundaryPaint.setColor(boundaryColor);
-        mBoundaryPaint.setStrokeWidth(boundaryWidth);
-        mBoundaryPaint.setStyle(Paint.Style.STROKE);
-        pathEffect = new CornerPathEffect(DensityUtil.dip2px(getContext(), 3));
+//        mBoundaryPaint.setColor(boundaryColor);
+//        mBoundaryPaint.setStrokeWidth(boundaryWidth);
+//        mBoundaryPaint.setStyle(Paint.Style.STROKE);
+//        pathEffect = new CornerPathEffect(DensityUtil.dip2px(getContext(), 3));
 
     }
 
@@ -147,6 +150,9 @@ public class FlowChildView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+
+        //canvas.drawColor(ContextCompat.getColor(getContext(),R.color.colorPrimary));
+
         //绘制文本居中参考博客：http://blog.csdn.net/hursing/article/details/18703599
         int baseline = (int) ((rect.bottom + rect.top - fontMetrics.bottom - fontMetrics.top) / 2);
         paint.setTextAlign(Paint.Align.CENTER);
@@ -154,7 +160,7 @@ public class FlowChildView extends View {
 
         final  int offset = DensityUtil.dip2px(getContext(), 0);
 
-        if (Build.VERSION_CODES.LOLLIPOP <= Build.VERSION.SDK_INT) {
+       /* if (Build.VERSION_CODES.LOLLIPOP <= Build.VERSION.SDK_INT) {
             canvas.drawRoundRect(getLeft()+offset,
                     getTop()+offset,
                     getRight()-offset,
@@ -169,7 +175,7 @@ public class FlowChildView extends View {
                     getRight()-offset,
                     getBottom()-offset,
                     mBoundaryPaint);
-        }
+        }*/
     }
 
 

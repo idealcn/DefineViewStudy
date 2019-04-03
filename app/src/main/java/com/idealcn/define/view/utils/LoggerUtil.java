@@ -10,10 +10,14 @@ public class LoggerUtil {
 
 
     private LoggerUtil(){}
-    public static class INSTANCE {
-        public static final LoggerUtil logger = new LoggerUtil();
+    private static class INSTANCE {
+        static final LoggerUtil logger = new LoggerUtil();
     }
 
+
+    public static LoggerUtil getInstance(){
+        return INSTANCE.logger;
+    }
 
 
     public  void info(String info){

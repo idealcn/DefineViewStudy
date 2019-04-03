@@ -3,229 +3,263 @@
     xmlns:define="http://schemas.android.com/apk/res-auto">
 
     <com.idealcn.define.view.view.FlowLayout
-        define:flow_gravity="flow_gravity_center_vertical"
         android:id="@+id/flowLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        define:flow_gravity="flow_gravity_center_vertical">
 
         <com.idealcn.define.view.view.FlowChildView
             android:id="@+id/flowChildView"
             style="@style/FlowChildView"
             define:text="三国演义"
-            define:textSize = "14sp"
-            define:textColor = "@color/colorAccent"
-            />
+            define:textColor="@color/colorAccent"
+            define:textSize="14sp" />
 
         <com.idealcn.define.view.view.FlowChildView
             style="@style/FlowChildView"
             define:text="三国演义"
-            define:textSize = "14sp"
-            define:textColor = "@color/colorAccent"
-            />
+            define:textColor="@color/colorAccent"
+            define:textSize="14sp" />
 
         <com.idealcn.define.view.view.FlowChildView
             style="@style/FlowChildView"
             define:text="三国演义"
-            define:textSize = "14sp"
-            define:textColor = "@color/colorAccent"
-            />
-        <com.idealcn.define.view.view.FlowChildView
-            style="@style/FlowChildView"
-            define:text="三国演义"
-            define:textSize = "14sp"
-            define:textColor = "@color/colorAccent"
-            />
+            define:textColor="@color/colorAccent"
+            define:textSize="14sp" />
 
         <com.idealcn.define.view.view.FlowChildView
             style="@style/FlowChildView"
             define:text="三国演义"
-            define:textSize = "14sp"
-            define:textColor = "@color/cardview_dark_background"
-            />
+            define:textColor="@color/colorAccent"
+            define:textSize="14sp" />
+
         <com.idealcn.define.view.view.FlowChildView
             style="@style/FlowChildView"
             define:text="三国演义"
-            define:textSize = "14sp"
-            define:textColor = "@color/colorPrimary"
-            />
+            android:background="@drawable/btn_shape_black"
+            define:textColor="#ffffff"
+            define:textSize="14sp" />
+
         <com.idealcn.define.view.view.FlowChildView
-            android:layout_width="wrap_content"
-            android:layout_height="80dp"
-            android:padding="5dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/btn_shape"
+            style="@style/FlowChildView"
             define:text="三国演义"
-            define:textSize = "14sp"
-            define:textColor = "@color/colorAccent"
-            />
-        <TextView
-            android:gravity="center"
-            style="@style/FlowChildView"
-            android:text="android开发进阶"/>
-
-        <TextView
-
-            android:gravity="center"
-            style="@style/FlowChildView"
-            android:text="java"/>
-
-        <TextView
-
-            android:gravity="center"
-            style="@style/FlowChildView"
-            android:text="ios"/>
-
-
-
-        <TextView
-
-            android:gravity="center"
-            style="@style/FlowChildView"
-            android:text="秦皇岛"/>
-
-        <TextView
-
-            android:gravity="center"
-            style="@style/FlowChildView"
-            android:text="石家庄"/>
-
-        <TextView
-
-            android:gravity="center"
-            style="@style/FlowChildView"
-            android:text="河北"/>
+            define:textColor="@color/colorPrimary"
+            define:textSize="14sp" />
 
         <com.idealcn.define.view.view.FlowChildView
             android:layout_width="wrap_content"
             android:layout_height="80dp"
-            android:padding="5dp"
             android:layout_margin="5dp"
             android:background="@drawable/btn_shape"
+            android:padding="5dp"
             define:text="三国演义"
-            define:textSize = "14sp"
-            define:textColor = "@color/colorAccent"
-            />
+            define:textColor="@color/colorAccent"
+            define:textSize="14sp" />
+
+        <TextView
+            style="@style/FlowChildView"
+            android:gravity="center"
+            android:text="android开发进阶" />
 
         <TextView
 
-            android:gravity="center"
             style="@style/FlowChildView"
-            android:text="汉献帝"/>
+            android:gravity="center"
+            android:text="java" />
+
+        <TextView
+            android:textColor="@color/colorAccent"
+            android:background="@drawable/btn_shape_black"
+            style="@style/FlowChildView"
+            android:gravity="center"
+            android:text="ios" />
+
 
         <TextView
 
-            android:gravity="center"
             style="@style/FlowChildView"
-            android:text="曹操"/>
+            android:gravity="center"
+            android:text="秦皇岛" />
 
         <TextView
 
-            android:gravity="center"
             style="@style/FlowChildView"
-            android:text="孙权"/>
+            android:gravity="center"
+            android:text="石家庄" />
+
+        <TextView
+
+            style="@style/FlowChildView"
+            android:gravity="center"
+            android:text="河北" />
+
         <com.idealcn.define.view.view.FlowChildView
             android:layout_width="wrap_content"
             android:layout_height="80dp"
-            android:padding="5dp"
             android:layout_margin="5dp"
             android:background="@drawable/btn_shape"
+            android:padding="5dp"
             define:text="三国演义"
-            define:textSize = "14sp"
-            define:textColor = "@color/colorAccent"
-            />
+            define:textColor="@color/colorAccent"
+            define:textSize="14sp" />
+
+        <TextView
+
+            style="@style/FlowChildView"
+            android:gravity="center"
+            android:text="汉献帝" />
+
+        <TextView
+
+            style="@style/FlowChildView"
+            android:gravity="center"
+            android:text="曹操" />
+
+        <TextView
+
+            style="@style/FlowChildView"
+            android:gravity="center"
+            android:text="孙权" />
+
+        <com.idealcn.define.view.view.FlowChildView
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/btn_shape"
+            android:padding="5dp"
+            define:text="三国演义"
+            define:textColor="@color/colorAccent"
+            define:textSize="14sp" />
 
 
         <TextView
 
-            android:gravity="center"
             style="@style/FlowChildView"
-            android:text="马超"/>
+            android:gravity="center"
+            android:text="马超" />
 
         <TextView
 
-            android:gravity="center"
             style="@style/FlowChildView"
-            android:text="黄忠"/>
+            android:gravity="center"
+            android:text="黄忠" />
 
         <TextView
 
-            android:gravity="center"
             style="@style/FlowChildView"
-            android:text="赵云"/>
+            android:gravity="center"
+            android:text="赵云" />
 
         <TextView
 
-            android:gravity="center"
             style="@style/FlowChildView"
-            android:text="周泰"/>
+            android:gravity="center"
+            android:text="周泰" />
 
         <TextView
 
-            android:gravity="center"
             style="@style/FlowChildView"
-            android:text="孙坚"/>
+            android:gravity="center"
+            android:text="孙坚" />
 
         <TextView
 
-            android:gravity="center"
-            style="@style/FlowChildView"
-            android:text="陶谦"/>
-
-        <TextView
             style="@style/FlowChildView"
             android:gravity="center"
-            android:text="吕布"/>
-
-        <TextView
-
-            android:gravity="center"
-            style="@style/FlowChildView"
-            android:text="魏延"/>
+            android:text="陶谦" />
 
         <TextView
             style="@style/FlowChildView"
             android:gravity="center"
-            android:text="许褚"/>
+            android:text="吕布" />
 
         <TextView
-            android:gravity="center"
+
             style="@style/FlowChildView"
-            android:text="韩当"/>
+            android:gravity="center"
+            android:text="魏延" />
 
         <TextView
-            android:gravity="center"
             style="@style/FlowChildView"
-            android:text="黄盖"/>
+            android:gravity="center"
+            android:text="许褚" />
+
+        <TextView
+            style="@style/FlowChildView"
+            android:gravity="center"
+            android:text="韩当" />
+
+        <TextView
+            style="@style/FlowChildView"
+            android:gravity="center"
+            android:text="黄盖" />
 
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher_round" />
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher_round" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher_round" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher_round" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher_round" />
 
         <com.idealcn.define.view.view.FlowChildView
             style="@style/FlowChildView"
-            define:text="太史慈"
-            define:textSize = "14sp"
-            define:textColor = "@color/colorPrimary"
             define:boundary_line_color="@color/colorPrimaryDark"
             define:boundary_line_width="3dp"
-            />
-
+            define:text="太史慈"
+            define:textColor="@color/colorPrimary"
+            define:textSize="14sp" />
 
 
         <com.idealcn.define.view.view.FlowChildView
             style="@style/FlowChildView"
             define:text="丁奉"
-            define:textSize = "14sp"
-            define:textColor = "@color/colorPrimary"
-            />
+            define:textColor="@color/colorPrimary"
+            define:textSize="14sp" />
 
 
         <com.idealcn.define.view.view.FlowChildView
             style="@style/FlowChildView"
-            define:text="周瑜"
-            define:textSize = "14sp"
-            define:textColor = "@color/colorPrimary"
             define:boundary_line_color="@color/colorPrimaryDark"
             define:boundary_line_width="3dp"
-            />
+            define:text="周瑜"
+            define:textColor="@color/colorPrimary"
+            define:textSize="14sp" />
+
+
+        <com.idealcn.define.view.view.FlowChildView
+            style="@style/FlowChildView"
+            define:text="丁奉"
+            define:textColor="@color/colorPrimary"
+            define:textSize="14sp" />
+
+
+        <com.idealcn.define.view.view.FlowChildView
+            style="@style/FlowChildView"
+            define:boundary_line_color="@color/colorPrimaryDark"
+            define:boundary_line_width="3dp"
+            define:text="周瑜"
+            define:textColor="@color/colorPrimary"
+            define:textSize="14sp" />
+
+
     </com.idealcn.define.view.view.FlowLayout>
 </layout>

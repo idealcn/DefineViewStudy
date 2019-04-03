@@ -5,7 +5,7 @@ canvas.save()是保存当前画布的状态,canvas.restore()是取出画布之�
 - View测量
     view的测量布局和绘制从ViewRootImpl的performTraversals()方法开始。
     调用View的measure方法，并将顶级窗口的MeasureSpec传递给View。
-    DecorView作为顶级View，它重写了onMeasure方法。测量是从DevorView的onMeasure开始的。
+    DecorView作为顶级View，它重写了onMeasure方法。测量是从DecorView的onMeasure开始的。
 
 ![ViewGroup测量流程](https://github.com/idealcn/DefineViewStudy/blob/master/img/ViewGroup-measure.png)
 
@@ -13,10 +13,10 @@ ViewGroup如何决定子view的宽高和测量模式,以高度为例
 
 1. 如果ViewGroup的高度设置为match_parent或者具体数值
    - 子view的高度设置为match_parent或者具体数值,那么子view的测量模式为MeasureSpec.EXACTLY,高度为ViewGroup所给出的最大高度或者具体数值
-     - 子view的高度设置为wrap_content,那么子view的测量模式为MeasureSpec.AT_MOST,高度为ViewGroup所给出的最大高度
+   - 子view的高度设置为wrap_content,那么子view的测量模式为MeasureSpec.AT_MOST,高度为ViewGroup所给出的最大高度
 2. 如果ViewGroup的高度设置为wrap_content
    - 子view的高度设置为具体数值,那么子view的测量模式为MeasureSpec.EXACTLY,高度为具体数值
-     - 子view的高度设置为match_parent或者wrap_content,子view的测量模式为MeasureSpec.AT_MOST,也就是说子view的高度不能超过ViewGroup的高度
+   - 子view的高度设置为match_parent或者wrap_content,子view的测量模式为MeasureSpec.AT_MOST,也就是说子view的高度不能超过ViewGroup的高度
 3. 具体可查看ViewGroup.getChildMeasureSpec()方法的源码
 
 相关方法: 

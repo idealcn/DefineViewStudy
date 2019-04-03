@@ -2,6 +2,7 @@ package com.idealcn.define.view.ui;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
@@ -42,7 +43,7 @@ public class RoundCakeActivity extends AppCompatActivity {
         }
        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this)
-        {
+       /* {
             @Override
             public RecyclerView.LayoutParams generateDefaultLayoutParams() {
                 RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT,
@@ -52,13 +53,13 @@ public class RoundCakeActivity extends AppCompatActivity {
                 lp.bottomMargin = dp2px(10);
                 return lp;
             }
-        }
+        }*/
         );
         recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
         recyclerView.setAdapter(new MyAdapter(dataList));
 
 
-        recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+       /* recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onGlobalLayout() {
@@ -67,7 +68,7 @@ public class RoundCakeActivity extends AppCompatActivity {
                 System.out.println("");
             }
 
-        });
+        });*/
 
     }
 
@@ -84,16 +85,16 @@ public class RoundCakeActivity extends AppCompatActivity {
             this.dataList = dataList;
         }
 
+        @NonNull
         @Override
-        public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = View.inflate(RoundCakeActivity.this, R.layout.item, null);
             return new MyHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(MyHolder holder, int position) {
+        public void onBindViewHolder(@NonNull MyHolder holder, int position) {
             holder.tvItem.setText(dataList.get(position));
-            System.out.println("");
         }
 
         @Override
@@ -105,7 +106,7 @@ public class RoundCakeActivity extends AppCompatActivity {
             TextView tvItem;
              MyHolder(View itemView) {
                 super(itemView);
-                tvItem = (TextView) itemView.findViewById(R.id.item_text);
+                tvItem = (TextView) itemView.findViewById(R.id.content);
             }
         }
     }

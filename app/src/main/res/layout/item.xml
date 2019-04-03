@@ -1,18 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-    <TextView
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:layout_gravity="center_vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/item_text"
-        android:paddingStart="10dp"
-        tools:ignore="RtlSymmetry" />
-</LinearLayout>
+    <com.idealcn.define.view.view.SlideDeleteLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        >
+
+        <TextView
+            android:id="@+id/content"
+            android:textColor="#ffffff"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="content" />
+
+        <TextView
+            android:textColor="#ffffff"
+            android:id="@+id/item_text"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="delete"
+            tools:ignore="RtlSymmetry" />
+    </com.idealcn.define.view.view.SlideDeleteLayout>
+</FrameLayout>

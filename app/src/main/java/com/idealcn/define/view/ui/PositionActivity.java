@@ -17,7 +17,7 @@ import com.idealcn.define.view.utils.LoggerUtil;
 
 public class PositionActivity extends AppCompatActivity {
 
-    private LoggerUtil loggerUtil = LoggerUtil.INSTANCE.logger;
+    private LoggerUtil loggerUtil = LoggerUtil.getInstance();
     private int start = 100;
 
     @Override

@@ -68,6 +68,7 @@ public class DefineViewGroup extends ViewGroup {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         //super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        final int width = MeasureSpec.getSize(widthMeasureSpec);
         int childCount = getChildCount();
         int widthUsed = 0, heightUsed = 0;
         int tempHeightUsed = 0;
@@ -76,7 +77,7 @@ public class DefineViewGroup extends ViewGroup {
             View child = getChildAt(x);
             if (child.getVisibility() == View.GONE) continue;
             MarginLayoutParams layoutParams = (MarginLayoutParams) child.getLayoutParams();
-            if (widthUsed + child.getMeasuredWidth() + layoutParams.leftMargin + layoutParams.rightMargin >= getMeasuredWidth()) {
+            if (widthUsed + child.getMeasuredWidth() + layoutParams.leftMargin + layoutParams.rightMargin >= width) {
                 widthUsed = 0;
                 heightUsed += tempHeightUsed;
                 tempHeightUsed = 0;
