@@ -37,7 +37,7 @@ public class ColorfulCircle extends View {
     private float progress = 0.01f;
 
 
-    private  ObjectAnimator animator;
+    private ObjectAnimator lastAnimator;
 
     private int strokeWidth ;
     private Paint mTextPaint;
@@ -104,7 +104,7 @@ public class ColorfulCircle extends View {
         super.onDraw(canvas);
         int width  = getWidth();
         int height = getHeight();
-        String text = 100*progress+"%";
+        String text = (int)(100*progress)+"%";
         canvas.drawText(text,
                width/2 - mTextPaint.measureText(text)/2,
                 height/2,
@@ -176,54 +176,33 @@ public class ColorfulCircle extends View {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        animator = ObjectAnimator.ofFloat(this, "progress", 0,0.3f,0.5f,0.75f);
+        final    ObjectAnimator  animator = ObjectAnimator.ofFloat(this, "progress", 0,0.3f,0.5f,0.75f);
+        lastAnimator = animator;
         animator.setDuration(10000);
         animator.start();
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-            }
-        });
-        animator.addListener(new AnimatorListenerAdapter() {
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                int width = getWidth();
-                int height = getHeight();
-                int paddingLeft = getPaddingLeft();
-
-                Toast.makeText(getContext(), "end", Toast.LENGTH_SHORT).show();
-                //动画结束后,释放动画
-                animator = null;
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                super.onAnimationCancel(animation);
-                animator = null;
-            }
-
-        });
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         //页面销毁时,释放动画
-        if (animator!=null) {
+        if (lastAnimator!=null) {
             //动画中止,移除所有动画监听
-            animator.removeAllListeners();
-            animator.cancel();
-            animator = null;
+            lastAnimator.removeAllListeners();
+            lastAnimator.cancel();
+            lastAnimator = null;
         }
     }
 
 
     public void setProgressType(int type) {
         this.progressType = type;
-//        invalidate();//这里不需要调用这个方法
+        if (null!=lastAnimator){
+            lastAnimator.cancel();
+            lastAnimator = null;
+        }
         ObjectAnimator animator = ObjectAnimator.ofFloat(this, "progress", 0.01f,0.3f,0.5f,0.75f);
+        lastAnimator = animator;
         animator.setDuration(10000);
         animator.start();
     }

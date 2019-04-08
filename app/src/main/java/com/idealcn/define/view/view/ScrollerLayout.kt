@@ -2,10 +2,13 @@ package com.idealcn.define.view.view
 
 import android.content.Context
 import android.support.v4.view.ViewCompat
+import android.support.v4.view.ViewConfigurationCompat
 import android.support.v4.widget.ViewDragHelper
 import android.util.AttributeSet
 import android.view.MotionEvent
+import android.view.VelocityTracker
 import android.view.View
+import android.view.ViewConfiguration
 import android.widget.FrameLayout
 import java.util.logging.Logger
 
@@ -20,6 +23,12 @@ class ScrollerLayout : FrameLayout {
     val logger: Logger = Logger.getLogger(this.javaClass.simpleName)
 
     lateinit var dragHelper: ViewDragHelper
+    private val scaledTouchSlop: Int
+
+
+    init {
+        scaledTouchSlop = ViewConfiguration.get(context).scaledTouchSlop
+    }
 
 
     constructor(context: Context) : this(context, null)
@@ -57,26 +66,28 @@ class ScrollerLayout : FrameLayout {
                 return 0
             }
 
-            override fun onViewCaptured(capturedChild: View, activePointerId: Int) {
-                super.onViewCaptured(capturedChild, activePointerId)
-            }
+
 
             override fun onViewPositionChanged(changedView: View, left: Int, top: Int, dx: Int, dy: Int) {
                 super.onViewPositionChanged(changedView, left, top, dx, dy)
                 for (x in 0 until childCount) {
                     if (getChildAt(x) == changedView) {
                         changedView.layout(left, 0, left + changedView.width, height)
+                        //当前触摸的子View左右两边的View的left值,也就是距离ScrollerLayout的左边界的距离.
                         var totalChildWidth: Int = 0
+                        //对于changedView左侧的View,采用由右至左的顺序来改变每个view的位置.方便totalChildWidth做累加操作
                         for (y in x - 1 downTo 0) {
                             val child = getChildAt(y)
                             totalChildWidth += child.width
                             child.layout(left - totalChildWidth, top, left - (totalChildWidth - child.width), height)
                         }
-                        totalChildWidth = 0
+                        //changedView右侧的第一个View距离ScrollerLayout的左边界的默认距离
+                        totalChildWidth = changedView.width+left
+                        //对于changedView右侧的,采用由左至右的顺序来改变每个view的位置.
                         for (y in x + 1 until childCount) {
                             val child = getChildAt(y)
+                            child.layout(totalChildWidth, 0, child.width + totalChildWidth, height)
                             totalChildWidth += child.width
-                            child.layout(left + changedView.width + (totalChildWidth - child.width), 0, left + changedView.width + totalChildWidth, height)
                         }
                         break
                     }
@@ -170,10 +181,32 @@ class ScrollerLayout : FrameLayout {
         })
     }
 
+    override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
+        val velocityTracker = VelocityTracker.obtain()
+        velocityTracker.addMovement(ev)
+
+
+        velocityTracker.recycle()
+
+
+        when(ev!!.action){
+            MotionEvent.ACTION_DOWN -> {
+
+            }
+
+            MotionEvent.ACTION_UP -> {
+                val xVelocity = velocityTracker.xVelocity
+
+
+            }
+        }
+
+        return super.onInterceptTouchEvent(ev)
+    }
+
     override fun onTouchEvent(event: MotionEvent): Boolean {
         dragHelper.processTouchEvent(event)
         return true
-
     }
 
 
