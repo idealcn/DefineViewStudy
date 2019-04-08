@@ -52,4 +52,17 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
     </style>
+
+
+    <declare-styleable name="LinearIndicator">
+        <attr name="indicator_line_height" />
+        <attr name="indicator_line_width"/>
+        <attr name="indicator_line_color"/>
+        <attr name="indicator_text_color"/>
+        <attr name="indicator_text_selected_color"/>
+        <attr name="indicator_text_size"/>
+        <attr name="indicator_text"/>
+        <attr name="indicator_scroll_mode"/>
+
+    </declare-styleable>
 </resources>

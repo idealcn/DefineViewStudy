@@ -149,21 +149,76 @@ public class SlideDeleteLayout extends ViewGroup {
 //            invalidate();
     }
 
+    /**
+     *  todo 如果用作RecyclerView的Adapter的布局,会导致子view显示不正常,而用作Activity的 布局就没问题.
+     * @param widthMeasureSpec
+     * @param heightMeasureSpec
+     */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        //super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        // 这跟mContent的父亲的大小有关，父亲是宽填充父窗体，高度是和孩子一样是60dp
-      //  LayoutParams lp  = mContent.getLayoutParams();
-        mContent.measure(widthMeasureSpec,heightMeasureSpec); // 测量内容部分的大小
-        LayoutParams layoutParams = mDelete.getLayoutParams();
-        int deleteWidth = MeasureSpec.makeMeasureSpec(layoutParams.width, MeasureSpec.EXACTLY);
-        int deleteHeight = MeasureSpec.makeMeasureSpec(layoutParams.height, MeasureSpec.EXACTLY);
-        // 这个参数就需要指定为精确大小
-        mDelete.measure(deleteWidth,deleteHeight); // 测量删除部分的大小
-        setMeasuredDimension( MeasureSpec.getSize(widthMeasureSpec)
-                //mContent.getMeasuredWidth()
-                , mContent.getMeasuredHeight());
+
+        final int pWidth = MeasureSpec.getSize(widthMeasureSpec);
+        final int pHeight = MeasureSpec.getSize(heightMeasureSpec);
+
+        measureDefineChild(mContent,widthMeasureSpec,heightMeasureSpec,pWidth, pHeight);
+        measureDefineChild(mDelete,widthMeasureSpec,heightMeasureSpec,pWidth,pHeight);
+
+        setMeasuredDimension(pWidth
+                , Math.max(mContent.getMeasuredHeight(),mDelete.getMeasuredHeight()));
     }
+
+    private void measureDefineChild(View child,int widthMeasureSpec,int heightMeasureSpec,int pWidth, int pHeight) {
+        final LayoutParams contentLayoutParams = child.getLayoutParams();
+        final int height = contentLayoutParams.height;
+        final int width = contentLayoutParams.width;
+
+        final int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        final int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+
+
+        int contentWidthMeasureSpec = 0;
+
+        if (widthMode == MeasureSpec.EXACTLY){
+            if (width== LayoutParams.MATCH_PARENT){
+                contentWidthMeasureSpec = MeasureSpec.makeMeasureSpec(pWidth, MeasureSpec.EXACTLY);
+            }else if (width>0){
+                contentWidthMeasureSpec = MeasureSpec.makeMeasureSpec(Math.min(width,pWidth), MeasureSpec.EXACTLY);
+            }else if (width == LayoutParams.WRAP_CONTENT){
+                contentWidthMeasureSpec = MeasureSpec.makeMeasureSpec(Math.min(width,pWidth), MeasureSpec.AT_MOST);
+            }
+        }else if (widthMode == MeasureSpec.AT_MOST){
+            if (width== LayoutParams.MATCH_PARENT){
+                contentWidthMeasureSpec = MeasureSpec.makeMeasureSpec(pWidth, MeasureSpec.AT_MOST);
+            }else if (width>0){
+                contentWidthMeasureSpec = MeasureSpec.makeMeasureSpec(Math.min(width,pWidth), MeasureSpec.EXACTLY);
+            }else if (width == LayoutParams.WRAP_CONTENT){
+                contentWidthMeasureSpec = MeasureSpec.makeMeasureSpec(Math.min(width,pWidth), MeasureSpec.AT_MOST);
+            }
+        }
+
+        int contentHeightMeasureSpec = 0;
+
+        if (heightMode==MeasureSpec.EXACTLY){
+            if (height== LayoutParams.MATCH_PARENT) {
+                contentHeightMeasureSpec = MeasureSpec.makeMeasureSpec(pHeight, MeasureSpec.EXACTLY);
+            }else if (height== LayoutParams.WRAP_CONTENT){
+                contentHeightMeasureSpec = MeasureSpec.makeMeasureSpec(pHeight,MeasureSpec.AT_MOST);
+            }else if (height>0){
+                contentHeightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
+            }
+        }else if (heightMode==MeasureSpec.AT_MOST){
+            if (height== LayoutParams.MATCH_PARENT) {
+                contentHeightMeasureSpec = MeasureSpec.makeMeasureSpec(pHeight, MeasureSpec.AT_MOST);
+            }else if (height== LayoutParams.WRAP_CONTENT){
+                contentHeightMeasureSpec = MeasureSpec.makeMeasureSpec(pHeight,MeasureSpec.AT_MOST);
+            }else if (height>0){
+                contentHeightMeasureSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
+            }
+        }
+
+        child.measure(contentWidthMeasureSpec, contentHeightMeasureSpec );
+    }
+
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
          mContentWidth = mContent.getMeasuredWidth();
@@ -173,8 +228,6 @@ public class SlideDeleteLayout extends ViewGroup {
         mDelete.layout(mContentWidth,0,
                 mContentWidth + mDeleteWidth, mContentHeight); // 摆放删除部分的位置
     }
-
-
 
 
     @Override

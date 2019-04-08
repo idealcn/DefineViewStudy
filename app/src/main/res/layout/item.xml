@@ -12,21 +12,22 @@
 
         <TextView
             android:id="@+id/content"
-            android:textColor="#ffffff"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorPrimary"
             android:gravity="center"
-            android:text="content" />
+            android:text="content"
+            android:textColor="#ffffff"
+            />
 
         <TextView
-            android:textColor="#ffffff"
             android:id="@+id/item_text"
-            android:layout_width="80dp"
+            android:layout_width="120dp"
             android:layout_height="match_parent"
             android:background="@color/colorAccent"
             android:gravity="center"
             android:text="delete"
-            tools:ignore="RtlSymmetry" />
+            android:textColor="#ffffff"
+            />
     </com.idealcn.define.view.view.SlideDeleteLayout>
 </FrameLayout>

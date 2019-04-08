@@ -99,5 +99,15 @@
             android:id="@+id/defineViewGroup"
             android:onClick="@{click}"
             />
+
+        <com.idealcn.define.view.view.FlowChildView
+            style="@style/FlowChildView"
+            define:textColor="#123456"
+            define:textSize="14sp"
+            define:text="自定义左右滑动ViewGroup"
+            android:id="@+id/defineScrollViewGroup"
+            android:onClick="@{click}"
+            />
+
     </com.idealcn.define.view.view.FlowLayout>
 </layout>

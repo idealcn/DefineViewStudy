@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:define="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.idealcn.define.view.view.indicator.LinearIndicator
+        define:indicator_line_height="6dp"
+        define:indicator_line_width="80dp"
+        define:indicator_text_size="14sp"
+        define:indicator_scroll_mode="SCROLL_MODE_SCROLLABLE"
+        define:indicator_text="@array/indicator_text"
+        define:indicator_line_color="@color/colorAccent"
+        define:indicator_text_color="@color/colorAccent"
+        define:indicator_text_selected_color="@color/colorPrimaryDark"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:id="@+id/linearIndicator"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        />
+
+    <com.idealcn.define.view.view.ScrollerLayout
+        android:id="@+id/scrollerLayout"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearIndicator"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp">
+
+        <FrameLayout
+            android:id="@+id/first"
+            android:background="@color/colorAccent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <FrameLayout
+            android:background="#d01"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <FrameLayout
+            android:id="@+id/last"
+            android:background="@color/colorPrimary"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <FrameLayout
+            android:background="#000"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <FrameLayout
+            android:background="#904"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <FrameLayout
+            android:id="@+id/recyclerView"
+            android:background="#1a3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <FrameLayout
+            android:id="@+id/forth"
+            android:background="#485923"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+
+        <FrameLayout
+            android:id="@+id/fifth"
+            android:background="#c20"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <FrameLayout
+            android:background="#ac0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.idealcn.define.view.view.ScrollerLayout>
+
+</android.support.constraint.ConstraintLayout>
