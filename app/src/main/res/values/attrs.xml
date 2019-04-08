@@ -8,4 +8,19 @@
             <enum name="flow_gravity_center_horizontal" value="2"/>
         </attr>
     </declare-styleable>
+
+
+
+    <!-- indicator -->
+    <attr name="indicator_line_height" format="integer|reference|dimension"/>
+    <attr name="indicator_line_width" format="integer|reference|dimension"/>
+    <attr name="indicator_line_color" format="integer|reference|color"/>
+    <attr name="indicator_text_color" format="color|integer|reference"/>
+    <attr name="indicator_text_selected_color" format="color|integer|reference"/>
+    <attr name="indicator_text_size" format="integer|reference|dimension"/>
+    <attr name="indicator_text" format="reference"/>
+    <attr name="indicator_scroll_mode" format="integer|enum">
+        <enum name="SCROLL_MODE_SCROLLABLE" value="0"/>
+        <enum name="SCROLL_MODE_FIXED" value="1"/>
+    </attr>
 </resources>

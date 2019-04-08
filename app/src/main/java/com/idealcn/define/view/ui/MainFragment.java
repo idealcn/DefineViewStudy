@@ -20,9 +20,6 @@ import com.idealcn.define.view.databinding.FragmentMainBinding;
 
 public class MainFragment extends Fragment implements View.OnClickListener{
 
-    private static final String TAG = "fragment";
-
-    private FragmentMainBinding  binding;
 
 
     private OnFragmentChangeListener listener;
@@ -49,7 +46,7 @@ public class MainFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_main, container, false);
-        binding = DataBindingUtil.bind(root);
+       final FragmentMainBinding binding = DataBindingUtil.bind(root);
         binding.setClick(this);
         return root;
     }
@@ -91,6 +88,10 @@ public class MainFragment extends Fragment implements View.OnClickListener{
                 break;
             case R.id.defineViewGroup:
                 startActivity(new Intent(mainActivity,DefineViewGroupActivity.class));
+                break;
+            case R.id.defineScrollViewGroup:
+                startActivity(new Intent(mainActivity,ScrollActivity.class));
+
                 break;
             default:break;
         }
