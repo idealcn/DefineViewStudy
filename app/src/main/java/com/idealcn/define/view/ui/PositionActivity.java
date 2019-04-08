@@ -11,6 +11,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.idealcn.define.view.R;
 import com.idealcn.define.view.utils.LoggerUtil;
@@ -36,9 +37,9 @@ public class PositionActivity extends AppCompatActivity {
         findViewById(R.id.valueAnimation).setOnClickListener(view -> {
             //动画改变的是view的translationX和translationY的值,不会改变mLeft和mTop
             ViewPropertyAnimator animate = textView.animate();
-            animate.translationYBy(10);
-            animate.translationXBy(10);
-            animate.start();
+            animate.translationYBy(10)
+            .translationXBy(10)
+            .start();
             loggerTextViewPosition(textView);
         });
 
@@ -88,6 +89,12 @@ public class PositionActivity extends AppCompatActivity {
            parent.scrollBy(-10,-10);
            parent.requestLayout();
             loggerTextViewPosition(textView);
+        });
+
+
+
+        findViewById(R.id.textView).setOnClickListener(view -> {
+            Toast.makeText(this, "---------", Toast.LENGTH_SHORT).show();
         });
     }
 

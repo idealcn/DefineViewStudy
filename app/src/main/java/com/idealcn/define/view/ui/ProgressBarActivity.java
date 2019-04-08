@@ -32,9 +32,11 @@ public class ProgressBarActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
+      //  binding.colorCircle.setDuration(10000);
         switch (v.getId()){
             case R.id.line:
                 binding.colorCircle.setProgressType(ColorfulCircle.LINE);
+
                 break;
             case R.id.circle:
                 binding.colorCircle.setProgressType(ColorfulCircle.CIRCLE);

@@ -25,6 +25,7 @@ import java.util.List;
 
 public class PhotoSelector extends ViewGroup {
 
+    private   int MAX_NUMBER = 7;
     private int horizontalSpace;
     private int verticalSpace;
     private int columns;
@@ -53,13 +54,21 @@ public class PhotoSelector extends ViewGroup {
 
         scaledDensity = getResources().getDisplayMetrics().scaledDensity;
 
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.PhotoSelector);
+        TypedArray typedArray = null;
+        try {
+            typedArray = context.obtainStyledAttributes(attrs, R.styleable.PhotoSelector);
 
 
-        columns = typedArray.getInt(R.styleable.PhotoSelector_columns, 3);
-        horizontalSpace = typedArray.getDimensionPixelSize(R.styleable.PhotoSelector_horizontal_space, dipToPx(5));
-        verticalSpace = typedArray.getDimensionPixelSize(R.styleable.PhotoSelector_vertical_space, dipToPx(5));
-        typedArray.recycle();
+            columns = typedArray.getInt(R.styleable.PhotoSelector_columns, 3);
+            horizontalSpace = typedArray.getDimensionPixelSize(R.styleable.PhotoSelector_horizontal_space, dipToPx(5));
+            verticalSpace = typedArray.getDimensionPixelSize(R.styleable.PhotoSelector_vertical_space, dipToPx(5));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if (null!=typedArray){
+                typedArray.recycle();
+            }
+        }
 
 
     }
@@ -124,8 +133,8 @@ public class PhotoSelector extends ViewGroup {
             public void onClick(View v) {
 
                 final int size = viewList.size();
-                if (size >= 8) {
-                    Toast.makeText(getContext(), "仅能添加7张图片", Toast.LENGTH_SHORT).show();
+                if (size > MAX_NUMBER) {
+                    Toast.makeText(getContext(), "仅能添加"+MAX_NUMBER+"张图片", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -175,6 +184,11 @@ public class PhotoSelector extends ViewGroup {
             dialog.dismiss();
             dialog = null;
         }
+    }
+
+
+    public void setMAX_NUMBER(int max_number){
+        this.MAX_NUMBER = max_number;
     }
 
     @Override

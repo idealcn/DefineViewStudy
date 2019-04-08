@@ -104,7 +104,7 @@ public class ColorfulCircle extends View {
         super.onDraw(canvas);
         int width  = getWidth();
         int height = getHeight();
-        String text = 100*progress+"%";
+        String text = (int)(100*progress)+"%";
         canvas.drawText(text,
                width/2 - mTextPaint.measureText(text)/2,
                 height/2,
@@ -176,9 +176,7 @@ public class ColorfulCircle extends View {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
-        animator = ObjectAnimator.ofFloat(this, "progress", 0,0.3f,0.5f,0.75f);
-        animator.setDuration(10000);
-        animator.start();
+        initAnimator();
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
@@ -207,6 +205,15 @@ public class ColorfulCircle extends View {
         });
     }
 
+    private void initAnimator() {
+        if (null!=animator){
+            cancelAnimator();
+        }
+        animator = ObjectAnimator.ofFloat(this, "progress", 0,0.3f,0.5f,0.75f);
+        animator.setDuration(10000);
+        animator.start();
+    }
+
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
@@ -223,8 +230,20 @@ public class ColorfulCircle extends View {
     public void setProgressType(int type) {
         this.progressType = type;
 //        invalidate();//这里不需要调用这个方法
-        ObjectAnimator animator = ObjectAnimator.ofFloat(this, "progress", 0.01f,0.3f,0.5f,0.75f);
-        animator.setDuration(10000);
-        animator.start();
+        if (null!=animator){
+            cancelAnimator();
+        }
+         initAnimator();
+    }
+
+
+    private void cancelAnimator(){
+        if (null!=animator){
+            animator.removeAllUpdateListeners();
+            animator.removeAllListeners();
+            animator.cancel();
+            animator = null;
+
+        }
     }
 }
