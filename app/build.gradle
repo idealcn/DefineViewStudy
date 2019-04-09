@@ -46,6 +46,8 @@ dependencies {
     implementation "com.android.support:support-v4:$VERSION_SUPPORT"
     implementation "com.android.support:design:$VERSION_SUPPORT"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.38'
 }
 repositories {
     mavenCentral()

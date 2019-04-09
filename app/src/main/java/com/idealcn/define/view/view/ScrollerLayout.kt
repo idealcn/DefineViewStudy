@@ -1,6 +1,7 @@
 package com.idealcn.define.view.view
 
 import android.content.Context
+import android.icu.util.TimeUnit
 import android.support.v4.view.ViewCompat
 import android.support.v4.view.ViewConfigurationCompat
 import android.support.v4.widget.ViewDragHelper
@@ -10,6 +11,7 @@ import android.view.VelocityTracker
 import android.view.View
 import android.view.ViewConfiguration
 import android.widget.FrameLayout
+import com.idealcn.define.view.utils.LoggerUtil
 import java.util.logging.Logger
 
 /**
@@ -47,7 +49,9 @@ class ScrollerLayout : FrameLayout {
             override fun clampViewPositionHorizontal(child: View, left: Int, dx: Int): Int {
                 for (x in 0 until childCount) {
                     if (getChildAt(x) == child) {
+                        //左边界约束,在ScrollerLayout未发生滑动的情况下,当前触摸的子View距离ScrollerLayout的左边界的距离值.
                         var clampLeft = 0
+                        //右边界约束,在ScrollerLayout未发生滑动的情况下,当前触摸的子View距离ScrollerLayout的右边界的距离值.
                         var clampRight = 0
                         for (y in 0 until x) {
                             clampLeft += getChildAt(y).width
@@ -55,7 +59,9 @@ class ScrollerLayout : FrameLayout {
                         for (y in x + 1 until childCount) {
                             clampRight += getChildAt(y).width
                         }
+                        //当前触摸的子View距离ScrollerLayout的左边界不能超过clampLeft的约束值,子View向右滑动的极限
                         if (left > clampLeft) return clampLeft
+                        //当前触摸的子View距离ScrollerLayout的右边界不能超过clampRight的约束值,子View向左滑动的极限
                         if (left + clampRight < 0) return clampRight
                     }
                 }
@@ -95,36 +101,41 @@ class ScrollerLayout : FrameLayout {
             }
 
             override fun onViewReleased(releasedChild: View, xvel: Float, yvel: Float) {
-                val left = releasedChild.left
                 val childCount = childCount
                 for (x in 0 until childCount) {
-                    val child = getChildAt(x)
-                    if (releasedChild == child) {
+                    if (releasedChild == getChildAt(x)) {
+                        val left = releasedChild.left
+                        val preChild = getChildAt(x - 1)
                         if (left > 0) {
-                            if (left - releasedChild.width / 2 > 0) {
-                                dragHelper.smoothSlideViewTo(releasedChild, getChildAt(x - 1).width, 0)
-                                var totalChildWidth = -getChildAt(x - 1).width
+                            //releaseChild在向右滚动,如果它滚动的距离超过了前一个View宽度的一半,
+                            if (left - preChild.width / 2 > 0) {
+                                dragHelper.smoothSlideViewTo(releasedChild, preChild.width , 0)
+                                var totalChildWidth = -preChild.width
                                 for (y in x - 1 downTo 0) {
-                                    totalChildWidth += getChildAt(y).width
-                                    dragHelper.smoothSlideViewTo(getChildAt(y), -totalChildWidth, 0)
+                                    val view = getChildAt(y)
+                                    totalChildWidth += view.width
+                                    dragHelper.smoothSlideViewTo(view, -totalChildWidth, 0)
                                 }
-                                totalChildWidth = getChildAt(x - 1).width + releasedChild.width
+                                totalChildWidth = preChild.width + releasedChild.width
                                 for (y in x + 1 until childCount) {
-                                    dragHelper.smoothSlideViewTo(getChildAt(y), totalChildWidth, 0)
-                                    totalChildWidth += getChildAt(y).width
+                                    val view = getChildAt(y)
+                                    dragHelper.smoothSlideViewTo(view, totalChildWidth, 0)
+                                    totalChildWidth += view.width
                                 }
                             } else {
-                                dragHelper.smoothSlideViewTo(releasedChild, 0, 0)
+                                dragHelper.smoothSlideViewTo(releasedChild,0, 0)
 
                                 var totalChildWidth = 0
                                 for (y in x - 1 downTo 0) {
-                                    totalChildWidth += getChildAt(y).width
-                                    dragHelper.smoothSlideViewTo(getChildAt(y), -totalChildWidth, 0)
+                                    val view = getChildAt(y)
+                                    totalChildWidth += view.width
+                                    dragHelper.smoothSlideViewTo(view, -totalChildWidth, 0)
                                 }
                                 totalChildWidth = releasedChild.width
                                 for (y in x + 1 until childCount) {
-                                    dragHelper.smoothSlideViewTo(getChildAt(y), totalChildWidth, 0)
-                                    totalChildWidth += getChildAt(y).width
+                                    val view = getChildAt(y)
+                                    dragHelper.smoothSlideViewTo(view, totalChildWidth, 0)
+                                    totalChildWidth += view.width
                                 }
                             }
                         } else {
@@ -155,20 +166,18 @@ class ScrollerLayout : FrameLayout {
                                 }
                             }
                         }
+                        ViewCompat.postInvalidateOnAnimation(this@ScrollerLayout)
                         break
                     }
                 }
-                ViewCompat.postInvalidateOnAnimation(this@ScrollerLayout)
             }
 
-            override fun onViewDragStateChanged(state: Int) {
-                super.onViewDragStateChanged(state)
-            }
 
             override fun getViewHorizontalDragRange(child: View): Int {
                 var dragRange = 0
                 for (x in 0 until childCount) {
-                    dragRange += getChildAt(x).width
+                    val child = getChildAt(x)
+                    dragRange += child.width
                 }
                 return dragRange
 
@@ -181,28 +190,7 @@ class ScrollerLayout : FrameLayout {
         })
     }
 
-    override fun onInterceptTouchEvent(ev: MotionEvent?): Boolean {
-        val velocityTracker = VelocityTracker.obtain()
-        velocityTracker.addMovement(ev)
 
-
-        velocityTracker.recycle()
-
-
-        when(ev!!.action){
-            MotionEvent.ACTION_DOWN -> {
-
-            }
-
-            MotionEvent.ACTION_UP -> {
-                val xVelocity = velocityTracker.xVelocity
-
-
-            }
-        }
-
-        return super.onInterceptTouchEvent(ev)
-    }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         dragHelper.processTouchEvent(event)
@@ -217,8 +205,7 @@ class ScrollerLayout : FrameLayout {
         for (x in 0 until childCount) {
             val child = getChildAt(x)
             if (child.visibility == View.GONE) continue
-            logger.info("child.measuredHeight: ${child.measuredHeight}," +
-                    " child.measuredWidth : ${child.measuredWidth}")
+
             //child.measure(widthMeasureSpec,heightMeasureSpec) 这样不正确
 /*        下面是正确的,
             child.measure(MeasureSpec.makeMeasureSpec(child.measuredWidth, MeasureSpec.EXACTLY)
@@ -229,8 +216,8 @@ class ScrollerLayout : FrameLayout {
                   */
             val params = child.layoutParams as FrameLayout.LayoutParams
             logger.info("params: width: ${params.width},height: ${params.height}")
-            pWidth += child.measuredWidth
-            pHeight = Math.max(child.measuredHeight, pHeight)
+            pWidth += child.measuredWidth + params.leftMargin + params.rightMargin
+            pHeight = Math.max(child.measuredHeight + params.topMargin + params.bottomMargin, pHeight)
         }
         setMeasuredDimension(pWidth / childCount, pHeight)
     }
@@ -242,8 +229,9 @@ class ScrollerLayout : FrameLayout {
         for (x in 0 until childCount) {
             val child = getChildAt(x)
             if (child.visibility == View.GONE) continue
-            child.layout(lastWidth, 0, lastWidth + child.width, height)
-            lastWidth += child.width
+            val layoutParams : FrameLayout.LayoutParams = child.layoutParams as LayoutParams
+            child.layout(lastWidth+layoutParams.leftMargin, 0, lastWidth + child.width+layoutParams.leftMargin, height)
+            lastWidth += child.width + layoutParams.leftMargin + layoutParams.rightMargin
         }
 
     }
