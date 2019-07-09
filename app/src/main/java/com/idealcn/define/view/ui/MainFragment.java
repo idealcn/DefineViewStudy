@@ -92,6 +92,9 @@ public class MainFragment extends Fragment implements View.OnClickListener{
             case R.id.defineScrollViewGroup:
                 startActivity(new Intent(mainActivity,ScrollActivity.class));
                 break;
+            case R.id.overDraw:
+                startActivity(new Intent(mainActivity,OverdrawActivity.class));
+                break;
             default:break;
         }
     }

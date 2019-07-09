@@ -31,6 +31,7 @@
         <activity android:name=".ui.PositionActivity" />
         <activity android:name=".ui.DefineViewGroupActivity" />
         <activity android:name=".ui.ScrollActivity" />
+        <activity android:name=".ui.OverdrawActivity" />
     </application>
 
 

@@ -109,5 +109,14 @@
             android:onClick="@{click}"
             />
 
+        <com.idealcn.define.view.view.FlowChildView
+            style="@style/FlowChildView"
+            define:textColor="#123456"
+            define:textSize="14sp"
+            define:text="过度绘制"
+            android:id="@+id/overDraw"
+            android:onClick="@{click}"
+            />
+
     </com.idealcn.define.view.view.FlowLayout>
 </layout>
