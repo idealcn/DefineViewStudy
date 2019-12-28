@@ -92,6 +92,7 @@
             />
 
         <com.idealcn.define.view.view.FlowChildView
+            android:visibility="gone"
             style="@style/FlowChildView"
             define:textColor="#123456"
             define:textSize="14sp"
@@ -110,6 +111,7 @@
             />
 
         <com.idealcn.define.view.view.FlowChildView
+            android:visibility="gone"
             style="@style/FlowChildView"
             define:textColor="#123456"
             define:textSize="14sp"
@@ -118,5 +120,19 @@
             android:onClick="@{click}"
             />
 
+        <com.idealcn.define.view.view.FlowChildView
+            style="@style/FlowChildView"
+            define:textColor="#123456"
+            define:textSize="14sp"
+            define:text="我是占位文本"
+            android:onClick="@{click}"
+            />
+        <com.idealcn.define.view.view.FlowChildView
+            style="@style/FlowChildView"
+            define:textColor="#123456"
+            define:textSize="14sp"
+            define:text="我是占位文本，不可点击"
+            android:onClick="@{click}"
+            />
     </com.idealcn.define.view.view.FlowLayout>
 </layout>

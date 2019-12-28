@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.idealcn.define.view.view.indicator.LinearIndicator
+        android:visibility="gone"
         define:indicator_line_height="6dp"
         define:indicator_line_width="80dp"
         define:indicator_text_size="14sp"

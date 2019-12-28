@@ -1,18 +1,15 @@
 package com.idealcn.define.view.view
 
 import android.content.Context
-import android.icu.util.TimeUnit
 import android.support.v4.view.ViewCompat
-import android.support.v4.view.ViewConfigurationCompat
 import android.support.v4.widget.ViewDragHelper
 import android.util.AttributeSet
 import android.view.MotionEvent
-import android.view.VelocityTracker
 import android.view.View
 import android.view.ViewConfiguration
 import android.widget.FrameLayout
-import com.idealcn.define.view.utils.LoggerUtil
 import java.util.logging.Logger
+import kotlin.math.max
 
 /**
  * 日期: 2018/9/26 10:12
@@ -217,7 +214,7 @@ class ScrollerLayout : FrameLayout {
             val params = child.layoutParams as FrameLayout.LayoutParams
             logger.info("params: width: ${params.width},height: ${params.height}")
             pWidth += child.measuredWidth + params.leftMargin + params.rightMargin
-            pHeight = Math.max(child.measuredHeight + params.topMargin + params.bottomMargin, pHeight)
+            pHeight = max(child.measuredHeight + params.topMargin + params.bottomMargin, pHeight)
         }
         setMeasuredDimension(pWidth / childCount, pHeight)
     }
